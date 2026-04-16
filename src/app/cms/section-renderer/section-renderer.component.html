@@ -1,0 +1,27 @@
+<div class="cms-section">
+
+  <ng-container [ngSwitch]="mappedType">
+
+    <app-hero-banner
+      *ngSwitchCase="'hero-banner'"
+      [section]="section">
+    </app-hero-banner>
+
+    <app-featured-products
+      *ngSwitchCase="'featured-products'"
+      [section]="section">
+    </app-featured-products>
+
+    <app-category-grid
+      *ngSwitchCase="'category-grid'"
+      [section]="section">
+    </app-category-grid>
+
+    <app-promo-banner
+      *ngSwitchCase="'promo-banner'"
+      [section]="section">
+    </app-promo-banner>
+
+  </ng-container>
+
+</div>

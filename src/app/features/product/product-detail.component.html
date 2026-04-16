@@ -1,0 +1,31 @@
+<div *ngIf="loading"><app-loader></app-loader></div>
+<div *ngIf="error" class="alert alert-danger">Product not found.</div>
+
+<div *ngIf="product" class="container py-4">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Fixed: imageUrl not image -->
+       <!-- Fixed: use || '' to handle undefined imageUrl -->
+<app-image-gallery [images]="[product.imageUrl || '']"></app-image-gallery>
+    </div>
+    <div class="col-md-6">
+      <!-- Fixed: name not title -->
+      <h1 class="text-4xl font-bold mb-4">{{ product.name }}</h1>
+      <p class="text-2xl text-primary font-bold mb-3">{{ product.price | currency }}</p>
+      <p class="text-muted mb-4">{{ product.description }}</p>
+      <p class="mb-2">
+        In Stock: <strong>{{ product.stockQty }}</strong>
+      </p>
+
+      <div class="flex items-center gap-3 mb-4">
+        <button class="btn btn-outline-secondary" (click)="decreaseQty()">-</button>
+        <span class="font-bold text-lg">{{ quantity }}</span>
+        <button class="btn btn-outline-secondary" (click)="increaseQty()">+</button>
+      </div>
+
+      <button class="btn btn-primary w-full" (click)="addToCart()">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>

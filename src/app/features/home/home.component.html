@@ -1,0 +1,26 @@
+﻿<div class="min-h-screen bg-white">
+
+  <div *ngIf="loading" class="flex min-h-[50vh] items-center justify-center">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="error && !loading" class="flex min-h-[50vh] items-center justify-center px-4">
+    <div class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+      <p class="mb-4 text-4xl">⚠</p>
+      <h3 class="mb-2 text-lg font-semibold text-slate-900">Could not load page</h3>
+      <p class="mb-6 text-sm text-slate-600">Please check your connection and try again.</p>
+      <button (click)="loadPage()" class="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
+        Retry
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!loading && !error" class="space-y-8">
+    <app-section-renderer
+      *ngFor="let section of sections"
+      [section]="section">
+    </app-section-renderer>
+    <div *ngIf="!sections.length" class="py-16 text-center text-slate-500">
+      <p>No homepage content configured yet.</p>
+    </div>
+  </div>
+
+</div>

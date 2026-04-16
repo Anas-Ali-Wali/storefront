@@ -1,0 +1,102 @@
+<form #form="ngForm" (ngSubmit)="submit(form)" class="mt-8 space-y-5">
+
+  <!-- FIRST NAME -->
+  <div>
+    <label class="text-sm font-semibold text-slate-700">First Name</label>
+    <input
+      [(ngModel)]="firstName"
+      name="firstName"
+      required
+      minlength="2"
+      #firstNameRef="ngModel"
+      class="mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none transition"
+      [ngClass]="firstNameRef.invalid && firstNameRef.touched ? 'border-red-400' : 'border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'"
+      placeholder="Enter first name"
+    />
+
+    <p *ngIf="firstNameRef.touched && firstNameRef.invalid"
+       class="text-xs text-red-500 mt-1">
+      First name must be at least 2 characters
+    </p>
+  </div>
+
+  <!-- LAST NAME -->
+  <div>
+    <label class="text-sm font-semibold text-slate-700">Last Name</label>
+    <input
+      [(ngModel)]="lastName"
+      name="lastName"
+      required
+      minlength="2"
+      #lastNameRef="ngModel"
+      class="mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none transition"
+      [ngClass]="lastNameRef.invalid && lastNameRef.touched ? 'border-red-400' : 'border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'"
+      placeholder="Enter last name"
+    />
+
+    <p *ngIf="lastNameRef.touched && lastNameRef.invalid"
+       class="text-xs text-red-500 mt-1">
+      Last name must be at least 2 characters
+    </p>
+  </div>
+
+  <!-- EMAIL -->
+  <div>
+    <label class="text-sm font-semibold text-slate-700">Email</label>
+    <input
+      [(ngModel)]="email"
+      name="email"
+      type="email"
+      required
+      email
+      #emailRef="ngModel"
+      class="mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none transition"
+      [ngClass]="emailRef.invalid && emailRef.touched ? 'border-red-400' : 'border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'"
+      placeholder="Enter email"
+    />
+
+    <p *ngIf="emailRef.touched && emailRef.invalid"
+       class="text-xs text-red-500 mt-1">
+      Enter a valid email address
+    </p>
+  </div>
+
+  <!-- PASSWORD -->
+  <div>
+    <label class="text-sm font-semibold text-slate-700">Password</label>
+    <input
+      [(ngModel)]="password"
+      name="password"
+      type="password"
+      required
+      minlength="6"
+      #passwordRef="ngModel"
+      class="mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none transition"
+      [ngClass]="passwordRef.invalid && passwordRef.touched ? 'border-red-400' : 'border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'"
+      placeholder="Create password"
+    />
+
+    <p *ngIf="passwordRef.touched && passwordRef.invalid"
+       class="text-xs text-red-500 mt-1">
+      Password must be at least 6 characters
+    </p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error"
+       class="rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 text-center">
+    {{ error }}
+  </div>
+
+  <!-- BUTTON -->
+  <button
+    type="submit"
+    [disabled]="form.invalid || loading"
+    class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 py-3 text-white font-semibold shadow-md transition
+           disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl active:scale-95">
+
+    {{ loading ? 'Creating Account...' : 'Create Account' }}
+
+  </button>
+
+</form>

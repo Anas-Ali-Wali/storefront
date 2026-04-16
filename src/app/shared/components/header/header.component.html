@@ -1,0 +1,90 @@
+﻿<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100">
+  <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-slate-200 text-xs">
+    <div class="mx-auto flex max-w-7xl justify-between px-4 py-2 md:px-6">
+      <span class="tracking-wide">
+        🚚 Free delivery on orders over Rs. 2,000
+      </span>
+
+      <div class="hidden sm:flex items-center gap-4">
+        <a routerLink="/auth/login" class="hover:text-white transition">Sign In</a>
+        <span class="text-slate-500">|</span>
+        <a routerLink="/account/orders" class="hover:text-white transition">My Orders</a>
+        <span class="text-slate-500">|</span>
+        <a routerLink="/help" class="hover:text-white transition">Help</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
+
+      <a routerLink="/"
+         class="text-2xl font-extrabold tracking-tight text-slate-900 hover:text-blue-600 transition">
+        Storefront
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a routerLink="/" class="hover:text-blue-600 transition">Home</a>
+        <a routerLink="/shop" class="hover:text-blue-600 transition">Shop</a>
+        <a routerLink="/help" class="hover:text-blue-600 transition">Help</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+
+        <a routerLink="/auth/login"
+           class="flex items-center gap-2 rounded-2xl px-3 py-2 text-slate-700 hover:bg-slate-100 transition">
+
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+
+          <span class="hidden sm:inline">Account</span>
+        </a>
+
+        <a routerLink="/cart"
+           class="relative flex items-center gap-2 rounded-2xl px-3 py-2 text-slate-700 hover:bg-slate-100 transition">
+
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+
+          <span class="hidden sm:inline">Cart</span>
+
+          <span class="absolute -top-1 -right-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10px] px-1.5 rounded-full shadow-md">
+            {{ cartCount }}
+          </span>
+        </a>
+
+        <button (click)="toggleMenu()"
+                class="md:hidden flex flex-col gap-1 p-2 rounded-xl hover:bg-slate-100 transition">
+
+          <span class="w-6 h-0.5 bg-slate-800"></span>
+          <span class="w-6 h-0.5 bg-slate-800"></span>
+          <span class="w-6 h-0.5 bg-slate-800"></span>
+
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="menuOpen"
+       class="md:hidden border-t bg-white shadow-md">
+
+    <div class="flex flex-col px-4 py-3 text-sm">
+
+      <a routerLink="/" class="py-2 hover:text-blue-600">Home</a>
+      <a routerLink="/shop" class="py-2 hover:text-blue-600">Shop</a>
+      <a routerLink="/help" class="py-2 hover:text-blue-600">Help</a>
+      <a routerLink="/auth/login" class="py-2 hover:text-blue-600">Sign In</a>
+      <a routerLink="/account/orders" class="py-2 hover:text-blue-600">My Orders</a>
+
+    </div>
+
+  </div>
+
+</header> 

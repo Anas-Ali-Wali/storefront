@@ -1,0 +1,52 @@
+<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+  <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
+        Browse Categories
+      </p>
+
+      <h2 class="mt-2 text-4xl font-extrabold text-slate-900">
+        Shop by Category
+      </h2>
+
+      <p class="mt-2 text-sm text-slate-500">
+        Explore top product categories curated for you
+      </p>
+    </div>
+
+    <a routerLink="/shop"
+       class="inline-flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition">
+      View All
+      <span class="ml-2 text-blue-600">→</span>
+    </a>
+
+  </div>
+
+  <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+
+    <a
+      *ngFor="let cat of categories"
+      [routerLink]="['/shop']"
+      [queryParams]="{ categoryId: cat.categoryId }"
+      class="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-blue-400">
+
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition"></div>
+
+      <div class="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-slate-100 text-blue-600 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110">
+
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 1 4 0"/>
+        </svg>
+
+      </div>
+
+      <p class="relative text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition">
+        {{ cat.name }}
+      </p>
+
+    </a>
+
+  </div>
+
+</section>

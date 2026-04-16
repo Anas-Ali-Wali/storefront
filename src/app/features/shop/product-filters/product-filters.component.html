@@ -1,0 +1,12 @@
+<div class="space-y-4">
+  <label class="form-label">Category</label>
+  <select class="form-select" (change)="onCategoryChange($event)">
+    <option value="all">All categories</option>
+    <option *ngFor="let category of categories" [value]="category.categoryId">
+      {{ category.name }}
+    </option>
+  </select>
+  <label class="form-label">Price</label>
+  <input type="range" class="form-range" min="0" max="500" />
+  <button class="btn btn-outline-primary w-full">Apply</button>
+</div>

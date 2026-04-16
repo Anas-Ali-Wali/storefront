@@ -1,0 +1,41 @@
+<section class="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-xl px-6 py-10 sm:px-10 lg:px-14 text-white">
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-purple-600/20 blur-3xl opacity-70"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40"></div>
+
+  <div class="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+    <div class="max-w-2xl">
+
+      <p class="text-xs font-bold uppercase tracking-[0.3em] text-blue-400">
+        Limited Time Deal
+      </p>
+
+      <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white">
+        {{ headline }}
+      </h2>
+
+      <p class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
+        Limited time offers available now. Don't miss out on exclusive deals curated for you.
+      </p>
+
+    </div>
+    <div class="flex w-full lg:w-auto">
+
+      <a
+        [routerLink]="link"
+        class="group inline-flex w-full lg:w-auto items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:from-blue-600 hover:to-indigo-700 hover:shadow-2xl active:scale-95">
+
+        {{ cta }}
+
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+             fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>

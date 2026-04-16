@@ -1,0 +1,37 @@
+<section class="relative h-[80vh] overflow-hidden bg-white">
+  <div *ngFor="let slide of slides; let i = index"
+       class="absolute inset-0 transition-opacity duration-700"
+       [class.opacity-100]="i === currentIndex"
+       [class.opacity-0]="i !== currentIndex">
+    <div class="absolute inset-0 bg-cover bg-center"
+         [style.backgroundImage]="'url(' + slide.image + ')'">
+    </div>
+
+    <div class="relative z-10 flex h-full items-center justify-center text-center px-6">
+
+      <div class="text-slate-900">
+        <h1 class="text-4xl md:text-6xl font-bold">{{ slide.title }}</h1>
+        <p class="mt-4 text-lg text-slate-600">{{ slide.subtitle }}</p>
+
+        <a [routerLink]="slide.buttonLink"
+           class="mt-6 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-500 transition">
+          {{ slide.buttonText }}
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+   <!-- IMAGE (centered, not background) -->
+    <!-- <div class="absolute inset-0 flex items-center justify-center bg-white">
+
+      <img
+        [src]="slide.image"
+        class="h-[65%] w-auto object-contain drop-shadow-xl"
+      />
+
+    </div> -->

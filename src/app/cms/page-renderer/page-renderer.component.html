@@ -1,0 +1,15 @@
+<div *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+
+<div *ngIf="error" class="alert alert-danger">
+  Unable to load page. Please try again later.
+</div>
+
+<div *ngIf="!loading && !error">
+  <h1 *ngIf="page" class="text-3xl font-bold mb-6">{{ page.title }}</h1>
+  <app-section-renderer
+    *ngFor="let section of sections"
+    [section]="section"
+  ></app-section-renderer>
+</div>
