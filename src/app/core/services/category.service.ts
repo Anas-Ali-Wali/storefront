@@ -9,6 +9,8 @@ export interface CategoryResponseDto {
   name: string;
   parentCategoryId?: number;  // was "parentId"
   status: boolean;
+  imageUrl?: string; // ✅ ADD THIS (IMPORTANT)
+
 }
 
 @Injectable()

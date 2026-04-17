@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './featured-products.component.html',
   styleUrls: ['./featured-products.component.css'],
 })
-export class FeaturedProductsComponent implements OnInit {
+export class FeaturedProductsComponent  implements OnInit {
+  //  implements OnInit
     @Input() section!: FullSection;
   products: ProductResponseDto[] = [];
   constructor(
@@ -42,16 +43,45 @@ export class FeaturedProductsComponent implements OnInit {
       });
     }
   }
-  addToCart(product: ProductResponseDto): void {
-    const item: CartItem = {
-      productId: product.productId,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl || '',
-      quantity: 1,
-      stockQty: product.stockQty
-    };
-    this.cartService.addToCart(item);
-  }
+  // addToCart(product: ProductResponseDto): void {
+  //   const item: CartItem = {
+  //     productId: product.productId,
+  //     name: product.name,
+  //     price: product.price,
+  //     imageUrl: product.imageUrl || '',
+  //     quantity: 1,
+  //     stockQty: product.stockQty
+  //   };
+  //   this.cartService.addToCart(item);
+  // }
+
+
+  //   products = [
+  //   { name: 'M1 Chronograph', price: 249 },
+  //   { name: 'Acoustic Core', price: 399 },
+  //   { name: 'Canvas High', price: 85 },
+  //   { name: 'Omni Tab Pro', price: 899 }
+  // ];
+
+
+  private apiBase = 'http://localhost:5025';
+
+getImageUrl(imageUrl?: string): string {
+  if (!imageUrl) return 'assets/placeholder.jpg';
+  if (imageUrl.startsWith('http')) return imageUrl;
+  return `${this.apiBase}${imageUrl}`;
+}
+
+addToCart(product: ProductResponseDto): void {
+  const item: CartItem = {
+    productId: product.productId,
+    name: product.name,
+    price: product.price,
+    imageUrl: this.getImageUrl(product.imageUrl), // ✅ full URL
+    quantity: 1,
+    stockQty: product.stockQty
+  };
+  this.cartService.addToCart(item);
+}
 
 }

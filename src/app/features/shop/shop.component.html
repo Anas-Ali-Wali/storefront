@@ -1,4 +1,4 @@
-<div class="grid gap-8 lg:grid-cols-[280px_1fr]">
+<!-- <div class="grid gap-8 lg:grid-cols-[280px_1fr]">
   <aside class="bg-white rounded-3xl p-6 shadow-sm">
     <h2 class="font-semibold text-lg mb-4">Filters</h2>
     <app-product-filters [categories]="categories" (categorySelected)="filterByCategory($event)"></app-product-filters>
@@ -15,4 +15,123 @@
       <app-product-card *ngFor="let product of products" [product]="product" (addToCart)="addToCart($event)"></app-product-card>
     </div>
   </section>
-</div>
+</div> -->
+
+<main class="pt-20 pb-16 max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10">
+
+  <!-- HEADER -->
+  <section class="mb-10">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+
+      <div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
+          The Collection
+        </h1>
+        <p class="text-slate-500 mt-2 max-w-xl text-sm sm:text-base">
+          A curated selection of modern essentials for your lifestyle.
+        </p>
+      </div>
+
+      <!-- SORT -->
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-slate-500 hidden sm:block">Sort</span>
+        <select class="border border-slate-200 rounded-xl px-3 py-2 text-sm bg-white shadow-sm">
+          <option>Featured</option>
+          <option>Price Low → High</option>
+          <option>Price High → Low</option>
+          <option>Newest</option>
+        </select>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FILTER BUTTON MOBILE -->
+  <div class="lg:hidden mb-4">
+    <button
+      (click)="showFilters = !showFilters"
+      class="w-full bg-slate-900 text-white py-3 rounded-xl font-semibold">
+      Filters
+    </button>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-10">
+
+    <!-- SIDEBAR -->
+    <aside
+      class="w-full lg:w-72 bg-white rounded-2xl shadow-sm border p-5 lg:sticky lg:top-24 h-fit"
+      [class.hidden]="!showFilters && isMobile">
+
+      <app-product-filters
+        [categories]="categories"
+        (categorySelected)="filterByCategory($event)">
+      </app-product-filters>
+
+    </aside>
+
+    <!-- PRODUCTS -->
+    <section class="flex-1">
+
+      <div class="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+        <div *ngFor="let product of products"
+             class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition">
+
+          <!-- IMAGE -->
+          <div class="relative aspect-[4/5] overflow-hidden"
+               [routerLink]="['/product', product.productId]">
+
+            <!-- <img
+              [src]="product.imageUrl || 'assets/placeholder.jpg'"
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-700" /> -->
+
+              <img
+  [src]="getImageUrl(product.imageUrl)"
+  class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+  
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+
+            <!-- ADD TO CART -->
+            <button
+              (click)="addToCart(product); $event.stopPropagation()"
+              class="absolute bottom-3 right-3 w-10 h-10 bg-white rounded-full shadow
+                     flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              🛒
+            </button>
+
+          </div>
+
+          <!-- CONTENT -->
+          <div class="p-3 sm:p-4">
+
+            <h3 class="font-semibold text-slate-900 text-sm sm:text-base">
+              {{ product.name }}
+            </h3>
+
+            <p class="text-xs text-slate-500 line-clamp-1">
+              {{ product.description }}
+            </p>
+
+            <div class="flex justify-between mt-2 items-center">
+
+              <!-- PKR PRICE -->
+              <span class="text-green-600 font-bold text-sm">
+                PKR {{ product.price | number:'1.0-0' }}
+              </span>
+
+              <span class="text-xs text-slate-400">
+                Stock: {{ product.stockQty }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+</main>

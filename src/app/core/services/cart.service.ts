@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 export interface CartItem {
   productId: number;   // was "id" — matches ProductResponseDto.productId
@@ -7,7 +7,11 @@ export interface CartItem {
   price: number;
   imageUrl: string;    // was "image" — matches ProductResponseDto.imageUrl
   quantity: number;
-  stockQty: number;    // added — needed for stock validation
+  stockQty: number;   
+   // added — needed for stock validation
+  badge?: string;    // yeh add karein
+  variant?: string;  // yeh add karein
+
 }
 
 @Injectable()
@@ -15,9 +19,15 @@ export class CartService {
   private readonly storageKey = 'storefront_cart';
   private cartSubject = new BehaviorSubject<CartItem[]>(this.loadCart());
   cart$ = this.cartSubject.asObservable();
+  // cartCount$ = this.cartSubject.pipe(
+  //   // total item count for header badge
+  // );
+
+    // ✅ FIX - yeh properly define karo
   cartCount$ = this.cartSubject.pipe(
-    // total item count for header badge
+    map(items => items.reduce((total, item) => total + item.quantity, 0))
   );
+
 
   private loadCart(): CartItem[] {
     const stored = localStorage.getItem(this.storageKey);

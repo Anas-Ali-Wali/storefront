@@ -1,4 +1,4 @@
-<section class="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-xl px-6 py-10 sm:px-10 lg:px-14 text-white">
+<!-- <section class="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 shadow-xl px-6 py-10 sm:px-10 lg:px-14 text-white">
   <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-purple-600/20 blur-3xl opacity-70"></div>
   <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40"></div>
 
@@ -36,6 +36,74 @@
 
     </div>
 
+  </div>
+
+</section> -->
+
+
+
+<section class="py-12 px-4 sm:px-6 lg:px-12">
+
+  <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-10 sm:p-14 lg:p-16 shadow-xl border border-slate-800">
+
+    <!-- Background glow -->
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+      <div class="absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-slate-700 blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-slate-600 blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
+
+      <!-- LEFT -->
+      <div class="text-center lg:text-left">
+
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
+          Limited Time Offer
+        </p>
+
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+          {{ headline }}
+        </h2>
+
+        <p class="mt-4 text-sm sm:text-base text-slate-300">
+          Join our exclusive circle and get special discounts on premium products.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+
+          <a [routerLink]="link"
+             class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-bold text-slate-900 hover:bg-slate-200 transition">
+            {{ cta }}
+          </a>
+
+          <button
+            class="rounded-full border border-slate-600 px-8 py-3 text-sm font-bold text-white hover:bg-slate-800 transition">
+            Learn More
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="text-center lg:text-right">
+
+        <div class="text-6xl sm:text-7xl lg:text-8xl font-black text-white">
+          15%
+        </div>
+
+        <div class="mt-2 text-xs font-bold tracking-[0.3em] text-slate-400 uppercase">
+          Discount Code: MONO15
+        </div>
+
+        <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-800 px-5 py-2 text-xs text-slate-300 border border-slate-700">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Active Offer
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
 </section>

@@ -7,8 +7,12 @@ import { CartItem, CartService } from '../../core/services/cart.service';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-   cartItems: CartItem[] = [];
+     cartItems: CartItem[] = [];
+  subtotal = 0;
+  shipping = 500;
+  tax = 0;
   total = 0;
+
 
   constructor(private cartService: CartService) {}
 

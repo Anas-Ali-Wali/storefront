@@ -1,4 +1,14 @@
-﻿<div class="product-card">
+﻿
+
+
+
+<div class="product-info">
+  <div class="product-price-row">
+    <p class="product-name">{{ product.name }}</p>
+    <span class="product-price">{{ product.price | currency:'PKR ':'symbol':'1.0-0' }}</span>
+  </div>
+  <!-- baaki sab same rahega -->
+   <div class="product-card">
 
   <div class="product-img-wrap">
     <img
@@ -42,3 +52,8 @@
   </div>
 
 </div>
+</div>
+
+
+
+

@@ -1,9 +1,7 @@
 ﻿<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 px-4 py-10">
 
-  <!-- CARD -->
   <div class="w-full max-w-md rounded-3xl bg-white/95 backdrop-blur-xl shadow-2xl border border-white/20 p-6 sm:p-8">
 
-    <!-- HEADER -->
     <div class="text-center">
       <p class="text-xs uppercase tracking-[0.3em] text-blue-600 font-bold">
         Welcome back
@@ -18,10 +16,8 @@
       </p>
     </div>
 
-    <!-- FORM -->
     <form (ngSubmit)="submit()" class="mt-8 space-y-5">
 
-      <!-- EMAIL -->
       <div>
         <label class="text-sm font-semibold text-slate-700">Email</label>
         <input
@@ -34,7 +30,6 @@
         />
       </div>
 
-      <!-- PASSWORD -->
       <div>
         <label class="text-sm font-semibold text-slate-700">Password</label>
         <input
@@ -47,13 +42,11 @@
         />
       </div>
 
-      <!-- ERROR -->
       <div *ngIf="error"
            class="rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3">
         {{ error }}
       </div>
 
-      <!-- BUTTON -->
       <button
         type="submit"
         class="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 py-3 text-white font-semibold shadow-md hover:shadow-xl hover:scale-[1.01] active:scale-95 transition">
@@ -64,7 +57,6 @@
 
     </form>
 
-    <!-- FOOTER -->
     <p class="mt-6 text-center text-xs text-slate-400">
       © 2026 Storefront. All rights reserved.
     </p>

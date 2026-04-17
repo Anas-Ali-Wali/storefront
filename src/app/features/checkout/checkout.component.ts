@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent {
+  shippingMethod = 'standard';
   customerAddress = '';
 city = '';
 paymentMethod = 'Cash';
@@ -60,16 +61,28 @@ paymentMethod = 'Cash';
           })
         );
 
-        Promise.all(details.map((d) => d.toPromise())).then(() => {
-          this.cartService.clearCart();
-          this.router.navigate(['/account/orders']);
-        });
-      },
+      //   Promise.all(details.map((d) => d.toPromise())).then(() => {
+      //     this.cartService.clearCart();
+      //     this.router.navigate(['/account/orders']);
+      //   });
+      // },
+            Promise.all(details.map((d) => d.toPromise())).then(() => {
+        this.loading = false; // ✅ ADD THIS
+        this.cartService.clearCart();
+        this.router.navigate(['/account/orders']);
+      }).catch(() => {               // ✅ ADD THIS TOO
+        this.error = 'Order details save nahi hue. Please retry.';
+        this.loading = false;
+      });
+    },
+
       error: () => {
         this.error = 'Order failed. Please try again.';
         this.loading = false;
       }
     });
   }
+
+
 
 }

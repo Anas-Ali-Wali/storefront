@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
 })
-export class AccountOrdersComponent implements OnInit {
+export class AccountOrdersComponent {
+  //  implements OnInit
  orders: any[] = [];
   loading = true;
 

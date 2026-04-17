@@ -55,10 +55,18 @@ export class ProductDetailComponent implements OnInit {
       productId: this.product.productId,
       name: this.product.name,
       price: this.product.price,
-      imageUrl: this.product.imageUrl || '',
+          imageUrl: this.getImageUrl(this.product.imageUrl), // ✅ full URL
       quantity: this.quantity,
       stockQty: this.product.stockQty
     };
     this.cartService.addToCart(item);
   }
+
+  private apiBase = 'http://localhost:5025';
+
+getImageUrl(imageUrl?: string): string {
+  if (!imageUrl) return 'https://via.placeholder.com/600x750?text=Product';
+  if (imageUrl.startsWith('http')) return imageUrl;
+  return `${this.apiBase}${imageUrl}`;
+}
 }

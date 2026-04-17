@@ -1,36 +1,24 @@
-﻿<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-
-  <!-- HEADER -->
+﻿<!-- <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
   <div class="mb-8">
     <h1 class="text-3xl font-extrabold text-slate-900">Order History</h1>
     <p class="mt-2 text-sm text-slate-500">
       Track your purchases, status updates and delivery progress.
     </p>
   </div>
-
-  <!-- LOADER -->
   <div *ngIf="loading" class="rounded-3xl bg-white p-10 shadow-sm text-center">
     <app-loader></app-loader>
   </div>
-
-  <!-- EMPTY -->
   <div *ngIf="!loading && orders.length === 0"
        class="rounded-3xl border border-dashed bg-white p-10 text-center text-slate-500 shadow-sm">
-
     <p class="text-lg font-semibold text-slate-700">No orders yet</p>
     <p class="mt-2 text-sm">Your order history will appear here after your first purchase.</p>
 
   </div>
-
-  <!-- ORDERS GRID -->
   <div *ngIf="!loading && orders.length > 0"
        class="grid gap-6 md:grid-cols-2">
-
-    <!-- ORDER CARD -->
     <div *ngFor="let order of orders"
          class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg hover:-translate-y-1">
 
-      <!-- TOP -->
       <div class="flex items-start justify-between">
 
         <div>
@@ -42,8 +30,6 @@
             {{ order.totalAmount || order.total | currency }}
           </h2>
         </div>
-
-        <!-- STATUS -->
         <span class="px-3 py-1 rounded-full text-xs font-semibold"
           [ngClass]="{
             'bg-yellow-100 text-yellow-700': order.status === 'Pending',
@@ -58,8 +44,6 @@
         </span>
 
       </div>
-
-      <!-- BASIC INFO -->
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
 
         <div class="rounded-2xl bg-slate-50 p-4">
@@ -78,7 +62,6 @@
 
       </div>
 
-      <!-- CUSTOMER INFO -->
       <div class="mt-4 grid gap-4 sm:grid-cols-2">
 
         <div class="rounded-2xl bg-slate-50 p-4">
@@ -97,7 +80,6 @@
 
       </div>
 
-      <!-- SHIPPING INFO -->
       <div class="mt-4 grid gap-4 sm:grid-cols-2">
 
         <div class="rounded-2xl bg-slate-50 p-4">
@@ -116,7 +98,6 @@
 
       </div>
 
-      <!-- ADDRESS -->
       <div class="mt-4 rounded-2xl bg-slate-50 p-4">
         <p class="text-xs text-slate-500">Shipping Address</p>
         <p class="mt-1 font-semibold text-slate-900">
@@ -126,6 +107,138 @@
 
     </div>
 
+  </div>
+
+</section> -->
+
+
+
+<section class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+  <!-- HEADER -->
+  <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+
+    <div>
+      <h1 class="text-3xl font-bold text-slate-900">Order History</h1>
+      <p class="mt-2 text-sm text-slate-500">
+        Track your purchases, status updates and delivery progress.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="rounded-2xl bg-white p-10 text-center shadow-sm">
+    <app-loader></app-loader>
+  </div>
+
+  <!-- EMPTY -->
+  <div *ngIf="!loading && orders.length === 0"
+       class="rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center shadow-sm">
+
+    <p class="text-lg font-semibold text-slate-900">No orders yet</p>
+    <p class="mt-2 text-sm text-slate-500">
+      Your order history will appear after your first purchase.
+    </p>
+
+    <a routerLink="/shop"
+       class="mt-5 inline-flex rounded-xl bg-blue-600 px-6 py-3 text-white text-sm font-medium hover:bg-blue-700">
+      Start Shopping
+    </a>
+
+  </div>
+
+  <!-- ORDERS GRID -->
+  <div *ngIf="!loading && orders.length > 0"
+       class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- ORDER CARD -->
+    <div *ngFor="let order of orders"
+         class="bg-white rounded-2xl p-6 shadow-sm transition hover:shadow-lg">
+
+      <!-- TOP -->
+      <div class="flex items-start justify-between">
+
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+            Order #{{ order.orderId || order.id }}
+          </p>
+
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">
+            {{ order.totalAmount || order.total | currency }}
+          </h2>
+        </div>
+
+        <!-- STATUS BADGE -->
+        <span class="px-3 py-1 rounded-full text-xs font-semibold"
+          [ngClass]="{
+            'bg-yellow-100 text-yellow-700': order.status === 'Pending',
+            'bg-blue-100 text-blue-700': order.status === 'Processing' || order.status === 'Confirmed',
+            'bg-indigo-100 text-indigo-700': order.status === 'Shipped',
+            'bg-green-100 text-green-700': order.status === 'Delivered',
+            'bg-red-100 text-red-700': order.status === 'Cancelled'
+          }">
+          {{ order.status || 'Pending' }}
+        </span>
+
+      </div>
+
+      <!-- INFO GRID -->
+      <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">Placed On</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.createdDate | date:'mediumDate' }}
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">Items</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.items?.length || order.details?.length || 0 }} products
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">Customer</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.customerName || 'Guest' }}
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">Contact</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.customerEmail || order.customerPhone || 'N/A' }}
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">City</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.city || 'N/A' }}
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-500">Payment</p>
+          <p class="mt-1 font-semibold text-slate-900">
+            {{ order.paymentMethod || 'COD' }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ADDRESS -->
+      <div class="mt-4 rounded-xl bg-slate-50 p-4">
+        <p class="text-xs text-slate-500">Shipping Address</p>
+        <p class="mt-1 font-semibold text-slate-900">
+          {{ order.address || 'Not provided' }}
+        </p>
+      </div>
+
+    </div>
   </div>
 
 </section>

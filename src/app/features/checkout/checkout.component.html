@@ -1,6 +1,5 @@
-﻿<div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+﻿<!-- <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
 
-  <!-- HEADER -->
   <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 
     <div>
@@ -20,49 +19,42 @@
 
   <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
 
-    <!-- FORM -->
     <form (ngSubmit)="submit()" class="rounded-3xl bg-white p-6 shadow-sm space-y-4">
 
       <div *ngIf="error" class="text-red-600 text-sm font-medium">
         {{ error }}
       </div>
 
-      <!-- NAME -->
       <div>
         <label class="text-sm font-medium text-slate-700">Full Name *</label>
         <input [(ngModel)]="customerName" name="customerName"
                class="mt-1 w-full rounded-xl border p-3 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- EMAIL -->
       <div>
         <label class="text-sm font-medium text-slate-700">Email</label>
         <input [(ngModel)]="customerEmail" name="customerEmail"
                class="mt-1 w-full rounded-xl border p-3 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- PHONE -->
       <div>
         <label class="text-sm font-medium text-slate-700">Phone</label>
         <input [(ngModel)]="customerPhone" name="customerPhone"
                class="mt-1 w-full rounded-xl border p-3 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- ADDRESS -->
       <div>
         <label class="text-sm font-medium text-slate-700">Address</label>
         <input [(ngModel)]="customerAddress" name="customerAddress"
                class="mt-1 w-full rounded-xl border p-3 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- CITY -->
       <div>
         <label class="text-sm font-medium text-slate-700">City</label>
         <input [(ngModel)]="city" name="city"
                class="mt-1 w-full rounded-xl border p-3 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- PAYMENT METHOD -->
       <div class="rounded-2xl bg-slate-50 p-4">
         <p class="text-sm font-semibold text-slate-900">Payment Method</p>
 
@@ -86,12 +78,10 @@
         </div>
       </div>
 
-      <!-- INFO -->
       <div class="rounded-2xl bg-blue-50 p-4 text-sm text-slate-600">
         You will be redirected to order confirmation after placing order.
       </div>
 
-      <!-- BUTTON -->
       <button type="submit"
               class="w-full rounded-2xl bg-blue-600 py-3 font-semibold text-white hover:bg-blue-700 transition">
         {{ loading ? 'Placing Order...' : 'Place Order' }}
@@ -99,7 +89,6 @@
 
     </form>
 
-    <!-- SUMMARY -->
     <aside class="rounded-3xl bg-slate-950 p-6 text-white">
 
       <h2 class="text-lg font-semibold">Order Summary</h2>
@@ -124,4 +113,294 @@
     </aside>
 
   </div>
+</div>
+
+ -->
+
+
+
+
+
+<!-- checkout.component.html -->
+<div class="checkout-page">
+
+  <!-- Background Noise Texture -->
+  <div class="bg-texture"></div>
+
+  <main class="checkout-main">
+
+    <!-- HEADER -->
+    <div class="checkout-header">
+      <div class="header-left">
+        <p class="header-label">Checkout</p>
+        <h1 class="header-title">Complete your order</h1>
+        <p class="header-sub">Fill in your details and confirm your purchase</p>
+      </div>
+      <div class="header-total-pill">
+        <span class="total-label">Order Total</span>
+        <span class="total-amount">{{ total | currency:'PKR':'symbol':'1.0-0' }}</span>
+      </div>
+    </div>
+
+    <div class="checkout-grid">
+
+      <!-- ═══════════════════════════════ LEFT ═══════════════════════════════ -->
+      <div class="left-col">
+
+        <!-- ── Section 1: Shipping Information ── -->
+        <section class="card">
+          <div class="section-heading">
+            <span class="step-badge">1</span>
+            <h2 class="section-title">Shipping Information</h2>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="field md-col-span-1">
+              <label class="field-label">Full Name</label>
+              <input
+                [(ngModel)]="customerName"
+                name="customerName"
+                class="field-input"
+                placeholder="e.g. Ahmed Khan"
+                type="text"
+              />
+            </div>
+
+            <div class="field md-col-span-1">
+              <label class="field-label">Phone Number</label>
+              <input
+                [(ngModel)]="customerPhone"
+                name="customerPhone"
+                class="field-input"
+                placeholder="+92 300 0000000"
+                type="tel"
+              />
+            </div>
+
+            <div class="field md-col-span-2">
+              <label class="field-label">Email Address</label>
+              <input
+                [(ngModel)]="customerEmail"
+                name="customerEmail"
+                class="field-input"
+                placeholder="you@example.com"
+                type="email"
+              />
+            </div>
+
+            <div class="field md-col-span-2">
+              <label class="field-label">Street Address</label>
+              <input
+                [(ngModel)]="customerAddress"
+                name="customerAddress"
+                class="field-input"
+                placeholder="House #, Street, Area"
+                type="text"
+              />
+            </div>
+
+            <div class="field md-col-span-1">
+              <label class="field-label">City</label>
+              <input
+                [(ngModel)]="city"
+                name="city"
+                class="field-input"
+                placeholder="Karachi"
+                type="text"
+              />
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ── Section 2: Shipping Method ── -->
+        <section class="card">
+          <div class="section-heading">
+            <span class="step-badge">2</span>
+            <h2 class="section-title">Shipping Method</h2>
+          </div>
+
+          <div class="shipping-options">
+
+            <label class="shipping-option" [class.selected]="shippingMethod === 'standard'">
+              <input
+                type="radio"
+                name="shippingMethod"
+                value="standard"
+                [(ngModel)]="shippingMethod"
+                class="radio-hidden"
+              />
+              <span class="radio-dot" [class.active]="shippingMethod === 'standard'"></span>
+              <div class="shipping-info">
+                <p class="shipping-name">Standard Delivery</p>
+                <p class="shipping-sub">3–5 business days</p>
+              </div>
+              <span class="shipping-price free">Free</span>
+            </label>
+
+            <label class="shipping-option" [class.selected]="shippingMethod === 'express'">
+              <input
+                type="radio"
+                name="shippingMethod"
+                value="express"
+                [(ngModel)]="shippingMethod"
+                class="radio-hidden"
+              />
+              <span class="radio-dot" [class.active]="shippingMethod === 'express'"></span>
+              <div class="shipping-info">
+                <p class="shipping-name">Express Courier</p>
+                <p class="shipping-sub">Next day delivery</p>
+              </div>
+              <span class="shipping-price">PKR 500</span>
+            </label>
+
+          </div>
+        </section>
+
+        <!-- ── Section 3: Payment Method ── -->
+        <section class="card">
+          <div class="section-heading">
+            <span class="step-badge">3</span>
+            <h2 class="section-title">Payment Method</h2>
+          </div>
+
+          <div class="payment-options">
+
+            <label class="payment-option" [class.selected]="paymentMethod === 'COD'">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="COD"
+                [(ngModel)]="paymentMethod"
+                class="radio-hidden"
+              />
+              <span class="radio-dot" [class.active]="paymentMethod === 'COD'"></span>
+              <span class="payment-icon cod-icon">₨</span>
+              <div class="payment-info">
+                <p class="payment-name">Cash on Delivery</p>
+                <p class="payment-sub">Pay when you receive</p>
+              </div>
+            </label>
+
+            <label class="payment-option" [class.selected]="paymentMethod === 'Easypaisa'">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Easypaisa"
+                [(ngModel)]="paymentMethod"
+                class="radio-hidden"
+              />
+              <span class="radio-dot" [class.active]="paymentMethod === 'Easypaisa'"></span>
+              <span class="payment-icon ep-icon">E</span>
+              <div class="payment-info">
+                <p class="payment-name">Easypaisa</p>
+                <p class="payment-sub">Mobile wallet transfer</p>
+              </div>
+            </label>
+
+            <label class="payment-option" [class.selected]="paymentMethod === 'JazzCash'">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="JazzCash"
+                [(ngModel)]="paymentMethod"
+                class="radio-hidden"
+              />
+              <span class="radio-dot" [class.active]="paymentMethod === 'JazzCash'"></span>
+              <span class="payment-icon jc-icon">J</span>
+              <div class="payment-info">
+                <p class="payment-name">JazzCash</p>
+                <p class="payment-sub">Mobile wallet transfer</p>
+              </div>
+            </label>
+
+          </div>
+        </section>
+
+        <!-- Error -->
+        <p class="error-msg" *ngIf="error">{{ error }}</p>
+
+        <!-- Place Order Button -->
+        <button
+          class="place-order-btn"
+          (click)="submit()"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">Place Order →</span>
+          <span *ngIf="loading" class="loading-text">
+            <span class="spinner"></span> Placing Order...
+          </span>
+        </button>
+
+        <p class="secure-note">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          256-bit SSL Secure Checkout
+        </p>
+
+      </div>
+
+      <!-- ═══════════════════════════════ RIGHT ═══════════════════════════════ -->
+      <aside class="summary-panel">
+
+        <h3 class="summary-title">Order Summary</h3>
+
+        <!-- Cart Items -->
+        <div class="summary-items">
+          <div class="summary-item" *ngFor="let item of cartItems">
+            <div class="item-avatar">
+              <img
+                *ngIf="item.imageUrl"
+                [src]="item.imageUrl"
+                [alt]="item.name"
+                class="item-img"
+              />
+              <span *ngIf="!item.imageUrl" class="item-initials">
+                {{ item.name?.charAt(0) }}
+              </span>
+            </div>
+            <div class="item-details">
+              <p class="item-name">{{ item.name }}</p>
+              <p class="item-qty">Qty: {{ item.quantity }}</p>
+            </div>
+            <span class="item-price">
+              {{ item.price * item.quantity | currency:'PKR':'symbol':'1.0-0' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="price-breakdown">
+          <div class="price-row">
+            <span>Subtotal</span>
+            <span>{{ total | currency:'PKR':'symbol':'1.0-0' }}</span>
+          </div>
+          <div class="price-row">
+            <span>Shipping</span>
+            <span [class.free-tag]="shippingMethod === 'standard'">
+              {{ shippingMethod === 'express' ? 'PKR 500' : 'Free' }}
+            </span>
+          </div>
+          <div class="price-row total-row">
+            <span>Total</span>
+            <span class="grand-total">
+              {{ (shippingMethod === 'express' ? total + 500 : total) | currency:'PKR':'symbol':'1.0-0' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="summary-divider"></div>
+
+        <!-- Payment Badge -->
+        <div class="payment-badge" [ngSwitch]="paymentMethod">
+          <span *ngSwitchCase="'COD'" class="badge-text">Cash on Delivery selected</span>
+          <span *ngSwitchCase="'Easypaisa'" class="badge-text ep">Easypaisa selected</span>
+          <span *ngSwitchCase="'JazzCash'" class="badge-text jc">JazzCash selected</span>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
 </div>

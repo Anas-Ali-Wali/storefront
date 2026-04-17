@@ -1,4 +1,4 @@
-﻿<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100">
+﻿<!-- <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100">
   <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-slate-200 text-xs">
     <div class="mx-auto flex max-w-7xl justify-between px-4 py-2 md:px-6">
       <span class="tracking-wide">
@@ -87,4 +87,103 @@
 
   </div>
 
-</header> 
+</header>  -->
+
+
+<header class="sticky top-0 w-full z-50 bg-white/75 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+  <div class="flex items-center justify-between px-6 md:px-8 h-14 max-w-[1440px] mx-auto">
+
+    <!-- LOGO -->
+    <a routerLink="/"
+       class="text-xl font-black tracking-tighter text-slate-900 hover:text-slate-600 transition">
+      MONOLITH
+    </a>
+
+    <!-- NAV (desktop) -->
+    <nav class="hidden md:flex items-center gap-9">
+      <a routerLink="/"
+         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+        Home
+      </a>
+
+      <a routerLink="/shop"
+         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
+         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+        Shop
+      </a>
+
+      <a routerLink="/help"
+         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
+         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+        Help
+      </a>
+    </nav>
+
+    <!-- ACTIONS -->
+    <div class="flex items-center gap-1">
+
+      <!-- Account -->
+      <a routerLink="/auth/login"
+         class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-orange-50 hover:text-orange-500 text-slate-500 transition">
+        👤
+      </a>
+
+      <!-- Cart -->
+      <a routerLink="/cart"
+         class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-orange-50 hover:text-orange-500 text-slate-500 transition">
+
+        🛒
+
+        <span *ngIf="cartCount > 0"
+              class="absolute -top-1 -right-1 bg-slate-900 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">
+          {{ cartCount }}
+        </span>
+      </a>
+
+      <!-- Divider -->
+      <div class="hidden md:block w-px h-4 bg-slate-200 mx-2"></div>
+
+      <!-- Orders -->
+      <a routerLink="/account/orders"
+         class="hidden md:flex text-[13px] text-slate-500 hover:text-slate-900 px-3 py-1 rounded-lg hover:bg-slate-100">
+        My Orders
+      </a>
+
+      <!-- Hamburger -->
+      <button (click)="toggleMenu()"
+              class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[4px] rounded-lg hover:bg-slate-100">
+
+        <span class="w-5 h-[2px] bg-slate-800 transition"
+              [class.rotate-45]="menuOpen"
+              [class.translate-y-[6px]]="menuOpen"></span>
+
+        <span class="w-5 h-[2px] bg-slate-800 transition"
+              [class.opacity-0]="menuOpen"></span>
+
+        <span class="w-5 h-[2px] bg-slate-800 transition"
+              [class.-rotate-45]="menuOpen"
+              [class.-translate-y-[6px]]="menuOpen"></span>
+
+      </button>
+
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div *ngIf="menuOpen"
+       class="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl">
+
+    <nav class="flex flex-col px-6 py-2">
+
+      <a routerLink="/" (click)="closeMenu()" class="py-3 border-b border-slate-100">Home</a>
+      <a routerLink="/shop" (click)="closeMenu()" class="py-3 border-b border-slate-100">Shop</a>
+      <a routerLink="/help" (click)="closeMenu()" class="py-3 border-b border-slate-100">Help</a>
+      <a routerLink="/account/orders" (click)="closeMenu()" class="py-3 border-b border-slate-100">My Orders</a>
+      <a routerLink="/auth/login" (click)="closeMenu()" class="py-3">Sign In</a>
+
+    </nav>
+
+  </div>
+</header>
