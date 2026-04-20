@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/account/account.module').then((m) => m.AccountModule),
   },
   {
+  path: 'help',
+  loadChildren: () => import('./features/help/help.module').then(m => m.HelpModule),
+},
+  {
     path: 'page/:slug',
     loadChildren: () => import('./cms/cms.module').then((m) => m.CmsModule),
   },
