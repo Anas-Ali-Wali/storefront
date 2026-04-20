@@ -327,7 +327,7 @@
           (click)="submit()"
           [disabled]="loading"
         >
-          <span *ngIf="!loading">Place Order →</span>
+          <span *ngIf="!loading" [routerLink]="['/shop']" routerLinkActive="router-link-active" >Place Order →</span>
           <span *ngIf="loading" class="loading-text">
             <span class="spinner"></span> Placing Order...
           </span>

@@ -69,11 +69,8 @@ paymentMethod = 'Cash';
             Promise.all(details.map((d) => d.toPromise())).then(() => {
         this.loading = false; // ✅ ADD THIS
         this.cartService.clearCart();
-        this.router.navigate(['/account/orders']);
-      }).catch(() => {               // ✅ ADD THIS TOO
-        this.error = 'Order details save nahi hue. Please retry.';
-        this.loading = false;
-      });
+        this.router.navigate(['/shop']);
+      })
     },
 
       error: () => {
@@ -83,6 +80,10 @@ paymentMethod = 'Cash';
     });
   }
 
+  // catch(() => {               // ✅ ADD THIS TOO
+  //       this.error = 'Order details save nahi hue. Please retry.';
+  //       this.loading = false;
+  //     });
 
 
 }
