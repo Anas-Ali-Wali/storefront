@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FullSection } from '../../../core/services/cms.service';
 import {  CategoryResponseDto, CategoryService } from '../../../core/services/category.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-category-grid',

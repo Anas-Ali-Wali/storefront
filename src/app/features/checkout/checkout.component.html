@@ -119,6 +119,35 @@
 
 
 
+<!-- ✅ Confirmation Card -->
+<div class="confirm-overlay" *ngIf="orderConfirmed">
+  <div class="confirm-card">
+    <div class="confirm-icon">✓</div>
+    <h2 class="confirm-title">Order Confirmed!</h2>
+    <p class="confirm-id">{{ orderId }}</p>
+    <p class="confirm-msg">Thank you, {{ customerName }}! Your order has been placed successfully.</p>
+
+    <div class="confirm-details">
+      <div class="confirm-row">
+        <span>Total</span>
+        <span>{{ total | currency:'PKR':'symbol':'1.0-0' }}</span>
+      </div>
+      <div class="confirm-row">
+        <span>Payment</span>
+        <span>{{ paymentMethod }}</span>
+      </div>
+      <div class="confirm-row">
+        <span>Shipping</span>
+        <span>{{ shippingMethod === 'express' ? 'Express Courier' : 'Standard Delivery' }}</span>
+      </div>
+    </div>
+
+    <button class="continue-btn" (click)="continueShopping()">
+      Continue Shopping →
+    </button>
+  </div>
+</div>
+
 
 
 <!-- checkout.component.html -->
@@ -327,8 +356,9 @@
           (click)="submit()"
           [disabled]="loading"
         >
-          <span *ngIf="!loading" [routerLink]="['/shop']" routerLinkActive="router-link-active" >Place Order →</span>
-          <span *ngIf="loading" class="loading-text">
+        <!-- <span *ngIf="!loading" [routerLink]="['/shop']" routerLinkActive="router-link-active" >Place Order →</span> -->
+          <span *ngIf="!loading">Place Order →</span>        
+        <span *ngIf="loading" class="loading-text">
             <span class="spinner"></span> Placing Order...
           </span>
         </button>

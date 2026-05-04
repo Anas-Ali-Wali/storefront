@@ -627,3 +627,212 @@ form { display: grid; gap: 1rem; }
 
 
 
+
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.confirm-card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: slideUp 0.4s ease;
+}
+
+.confirm-icon {
+  width: 72px;
+  height: 72px;
+  background: #22c55e;
+  color: white;
+  font-size: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.confirm-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.confirm-id {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.confirm-msg {
+  color: #374151;
+  margin-bottom: 24px;
+}
+
+.confirm-details {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.confirm-row:last-child { border-bottom: none; }
+
+.continue-btn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.continue-btn:hover { background: #333; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
+
+
+
+
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  .checkout-main {
+    padding: 24px 16px 60px;
+  }
+
+  .checkout-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+
+  .header-title {
+    font-size: 26px;
+  }
+
+  .header-total-pill {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Summary panel upar aaye mobile mein */
+  .summary-panel {
+    order: -1;
+    position: static;
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .md-col-span-2 {
+    grid-column: span 1;
+  }
+
+  .shipping-option,
+  .payment-option {
+    padding: 14px 16px;
+  }
+
+  .place-order-btn {
+    padding: 16px 20px;
+    font-size: 15px;
+    border-radius: 14px;
+  }
+
+  /* Confirmation Card Mobile */
+  .confirm-card {
+    padding: 32px 24px;
+    margin: 16px;
+  }
+
+  .confirm-title {
+    font-size: 22px;
+  }
+
+  .confirm-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .checkout-main {
+    padding: 16px 12px 48px;
+  }
+
+  .header-title {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .summary-title {
+    font-size: 16px;
+  }
+
+  .grand-total {
+    font-size: 18px;
+  }
+
+  .confirm-card {
+    padding: 28px 20px;
+  }
+}

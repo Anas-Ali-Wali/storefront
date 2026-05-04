@@ -8,25 +8,65 @@ import { environment } from 'src/environments/environment';
 @Injectable({ providedIn: 'root' })
 export class TenantResolverService {
 
+
   private resolvedTenantId: number | null = null;
 
   constructor(private http: HttpClient) {}
 
-  resolve(): Observable<any> {
-    const slug = this.getSlugFromUrl();
+  // resolve(): Observable<any> {
+  //   const domain = window.location.hostname; // automatic detect
 
-    return this.http.get<any>(
-      `${environment.apiUrl}/tenant/by-slug/${slug}`
-    ).pipe(
-      tap((res) => {
-        if (res?.data?.tenantId) {
-          this.resolvedTenantId = Number(res.data.tenantId);
-          localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+  //   return this.http.get<any>(
+  //     `${environment.apiUrl}/Tenant/resolve?domain=${domain}`
+  //   ).pipe(
+  //     tap((res) => {
+  //       if (res?.data?.tenantId) {
+  //         this.resolvedTenantId = Number(res.data.tenantId);
+  //         localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+  //       }
+  //     }),
+  //     catchError(() => of(null))
+  //   );
+  // }
+
+
+  resolve(): Observable<any> {
+  const domain = window.location.hostname;
+
+  return this.http.get<any>(
+    `${environment.apiUrl}/Tenant/resolve?domain=${domain}`
+  ).pipe(
+    tap((res) => {
+      if (res?.data?.tenantId) {
+        this.resolvedTenantId = Number(res.data.tenantId);
+        localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+
+        // ✅ ThemeColor bhi save aur apply karo
+        if (res.data.themeColor) {
+          localStorage.setItem('website_theme_color', res.data.themeColor);
+          this.applyTheme(res.data.themeColor);
         }
-      }),
-      catchError(() => of(null))
-    );
-  }
+      }
+    }),
+    catchError(() => of(null))
+  );
+}
+
+// ✅ NEW METHOD
+applyTheme(color: string): void {
+  const colorMap: Record<string, string> = {
+    'blue':   '#3b82f6',
+    'red':    '#ef4444',
+    'green':  '#22c55e',
+    'purple': '#a855f7',
+    'orange': '#f97316',
+    'pink':   '#ec4899',
+  };
+
+  const hex = colorMap[color] ?? '#3b82f6';
+  document.documentElement.style.setProperty('--primary-color', hex);
+}
+
 
   getTenantId(): number | null {
     if (this.resolvedTenantId) return this.resolvedTenantId;
@@ -34,13 +74,42 @@ export class TenantResolverService {
     return stored ? Number(stored) : null;
   }
 
-  private getSlugFromUrl(): string {
-    const host = window.location.hostname;
-    const parts = host.split('.');
-    if (parts.length >= 3) return parts[0]; // ali.yourstore.com → "ali"
-
-    // Local dev: localhost:4200?tenant=ali
-    const params = new URLSearchParams(window.location.search);
-    return params.get('tenant') || 'default';
-  }
 }
+
+
+
+  // private resolvedTenantId: number | null = null;
+
+  // constructor(private http: HttpClient) {}
+
+  // resolve(): Observable<any> {
+  //   const slug = this.getSlugFromUrl();
+
+  //   return this.http.get<any>(
+  //     `${environment.apiUrl}/tenant/by-slug/${slug}`
+  //   ).pipe(
+  //     tap((res) => {
+  //       if (res?.data?.tenantId) {
+  //         this.resolvedTenantId = Number(res.data.tenantId);
+  //         localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+  //       }
+  //     }),
+  //     catchError(() => of(null))
+  //   );
+  // }
+
+  // getTenantId(): number | null {
+  //   if (this.resolvedTenantId) return this.resolvedTenantId;
+  //   const stored = localStorage.getItem('website_tenant_id');
+  //   return stored ? Number(stored) : null;
+  // }
+
+  // private getSlugFromUrl(): string {
+  //   const host = window.location.hostname;
+  //   const parts = host.split('.');
+  //   if (parts.length >= 3) return parts[0]; // ali.yourstore.com → "ali"
+
+  //   // Local dev: localhost:4200?tenant=ali
+  //   const params = new URLSearchParams(window.location.search);
+  //   return params.get('tenant') || 'default';
+  // }

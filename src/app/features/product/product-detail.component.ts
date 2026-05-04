@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductResponseDto, ProductService } from '../../core/services/product.service';
 import { CartItem, CartService } from '../../core/services/cart.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-product-detail',
@@ -62,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
     this.cartService.addToCart(item);
   }
 
-  private apiBase = 'http://localhost:5025';
+private apiBase = environment.apiBase; // ✅ CORRECT
 
 getImageUrl(imageUrl?: string): string {
   if (!imageUrl) return 'https://via.placeholder.com/600x750?text=Product';

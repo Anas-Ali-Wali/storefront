@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product, ProductResponseDto } from '../../../core/services/product.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-product-card',
@@ -14,5 +15,11 @@ export class ProductCardComponent {
     this.addToCart.emit(this.product);
   }
 
+
+    getImageUrl(imageUrl?: string): string {
+    if (!imageUrl) return 'https://via.placeholder.com/300x300?text=Product';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `${environment.apiBase}${imageUrl}`;
+  }
 
 }

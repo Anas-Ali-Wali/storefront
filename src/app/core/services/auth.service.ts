@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
+import { TenantResolverService } from './tenant-resolver.service';
 
 export interface LoginPayload {
   email: string;
@@ -31,7 +32,8 @@ export class AuthService {
   private readonly tokenKey = 'storefront_token';
   private readonly userKey  = 'storefront_user';
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService,     private tenantResolver: TenantResolverService // ✅ ADD
+) {}
 
   login(payload: LoginPayload): Observable<LoginResponseData> {
     return this.api.post<any>('/auth/login', payload).pipe(
@@ -73,9 +75,20 @@ export class AuthService {
   //   return this.getUser()?.tenantId ?? 1;
   // }
 // auth.service.ts - FIXED getTenantId
+
+// getTenantId(): number | null {
+//   const user = this.getUser();
+//   if (!user?.tenantId) return null;
+//   return Number(user.tenantId); // ensure number hai, string nahi
+// }
+
 getTenantId(): number | null {
-  const user = this.getUser();
-  if (!user?.tenantId) return null;
-  return Number(user.tenantId); // ensure number hai, string nahi
-}
+    // 1st priority: logged in user ka tenantId
+    const user = this.getUser();
+    if (user?.tenantId) return Number(user.tenantId);
+
+    // 2nd priority: domain se resolve hua tenantId
+    return this.tenantResolver.getTenantId(); // ✅ Fallback
+  }
+
 }

@@ -46,6 +46,7 @@ a:hover {
     --surface-muted: theme('colors.slate.50');
     --text-primary: theme('colors.slate.900');
     --text-secondary: theme('colors.slate.600');
+    --primary-color: #3b82f6; /* ✅ ADD - tenant theme color */
   }
 
   body {

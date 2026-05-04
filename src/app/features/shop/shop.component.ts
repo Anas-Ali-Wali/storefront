@@ -4,6 +4,7 @@ import { Product, ProductResponseDto, ProductService, PaginatedProducts } from '
 import { CategoryResponseDto, CategoryService } from 'src/app/core/services/category.service';
 import { CartItem, CartService } from 'src/app/core/services/cart.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-shop',
@@ -141,7 +142,7 @@ export class ShopComponent implements OnInit {
   }
 
   // apna backend base URL
-private apiBase = 'http://localhost:5025';
+private apiBase = environment.apiBase; // ✅
 
 getImageUrl(imageUrl?: string): string {
   if (!imageUrl) return 'assets/placeholder.jpg';

@@ -4,7 +4,6 @@ import { CartService } from '../../core/services/cart.service';
 import { OrderService } from '../../core/services/order.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-checkout',
@@ -14,12 +13,14 @@ import { environment } from 'src/environments/environment.prod';
 export class CheckoutComponent {
   shippingMethod = 'standard';
   customerAddress = '';
-city = '';
-paymentMethod = 'Cash';
- cartItems = this.cartService.getItems();
+  city = '';
+  paymentMethod = 'Cash';
+  cartItems = this.cartService.getItems();
   total = this.cartService.getTotal();
   loading = false;
   error = '';
+  orderConfirmed = false;  // ✅ NEW
+  orderId = '';            // ✅ NEW
 
   customerName = '';
   customerEmail = '';
@@ -29,9 +30,9 @@ paymentMethod = 'Cash';
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router,
-        private auth: AuthService // ← ADD
+    private auth: AuthService // ← ADD
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.cartItems.length === 0) {
@@ -61,17 +62,19 @@ paymentMethod = 'Cash';
           })
         );
 
-      //   Promise.all(details.map((d) => d.toPromise())).then(() => {
-      //     this.cartService.clearCart();
-      //     this.router.navigate(['/account/orders']);
-      //   });
-      // },
-            Promise.all(details.map((d) => d.toPromise())).then(() => {
-        this.loading = false; // ✅ ADD THIS
-        this.cartService.clearCart();
-        this.router.navigate(['/shop']);
-      })
-    },
+        //   Promise.all(details.map((d) => d.toPromise())).then(() => {
+        //     this.cartService.clearCart();
+        //     this.router.navigate(['/account/orders']);
+        //   });
+        // },
+        Promise.all(details.map((d) => d.toPromise())).then(() => {
+          this.loading = false; // ✅ ADD THIS
+          this.cartService.clearCart();
+          this.orderId = 'ORD-' + order.orderId;  // ✅ OrderId save
+          this.orderConfirmed = true;
+          // this.router.navigate(['/shop']);
+        })
+      },
 
       error: () => {
         this.error = 'Order failed. Please try again.';
@@ -80,10 +83,8 @@ paymentMethod = 'Cash';
     });
   }
 
-  // catch(() => {               // ✅ ADD THIS TOO
-  //       this.error = 'Order details save nahi hue. Please retry.';
-  //       this.loading = false;
-  //     });
-
+  continueShopping(): void {
+    this.router.navigate(['/shop']);
+  }
 
 }

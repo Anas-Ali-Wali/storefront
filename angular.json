@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/storefront",
+            "outputPath": "D:/Projects/E-Commerce-Admin-Panel/ECommerceAdminPanel/wwwroot/website",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -31,6 +31,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/website/",
               "budgets": [
                 {
                   "type": "initial",

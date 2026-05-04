@@ -64,7 +64,7 @@ export class FeaturedProductsComponent  implements OnInit {
   // ];
 
 
-  private apiBase = 'http://localhost:5025';
+private apiBase = environment.apiBase; // ✅ Fix
 
 getImageUrl(imageUrl?: string): string {
   if (!imageUrl) return 'assets/placeholder.jpg';
