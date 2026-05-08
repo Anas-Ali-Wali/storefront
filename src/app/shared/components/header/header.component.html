@@ -90,100 +90,104 @@
 </header>  -->
 
 
-<header class="sticky top-0 w-full z-50 bg-white/75 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+
+<header class="sticky top-0 w-full z-50 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+        style="background-color: var(--navbar-bg);">
+
   <div class="flex items-center justify-between px-6 md:px-8 h-14 max-w-[1440px] mx-auto">
 
     <!-- LOGO -->
-    <a routerLink="/"
-       class="text-xl font-black tracking-tighter text-slate-900 hover:text-slate-600 transition">
-      MONOLITH
+    <a routerLink="/" class="flex items-center gap-2 hover:opacity-80 transition">
+      <!-- Image logo if available -->
+      <img *ngIf="logoUrl" [src]="logoUrl" alt="logo" class="h-8 w-auto object-contain" />
+      <!-- Text logo -->
+      <span *ngIf="!logoUrl"
+            class="text-xl font-black tracking-tighter transition"
+            style="color: var(--navbar-text);">
+        {{ storeName }}
+      </span>
     </a>
 
     <!-- NAV (desktop) -->
     <nav class="hidden md:flex items-center gap-9">
       <a routerLink="/"
-         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
+         routerLinkActive="font-bold border-b-2"
          [routerLinkActiveOptions]="{ exact: true }"
-         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+         class="text-[13.5px] font-medium pb-0.5 transition"
+         style="color: var(--navbar-text);"
+         [style.border-color]="'var(--primary-color)'"
+         onmouseover="this.style.color='var(--primary-color)'"
+         onmouseout="this.style.color='var(--navbar-text)'">
         Home
       </a>
-
       <a routerLink="/shop"
-         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
-         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+         routerLinkActive="font-bold border-b-2"
+         class="text-[13.5px] font-medium pb-0.5 transition"
+         style="color: var(--navbar-text);"
+         onmouseover="this.style.color='var(--primary-color)'"
+         onmouseout="this.style.color='var(--navbar-text)'">
         Shop
       </a>
-
       <a routerLink="/help"
-         routerLinkActive="!text-orange-600 !font-bold border-b-2 border-orange-500"
-         class="text-[13.5px] font-medium text-slate-500 hover:text-orange-500 pb-0.5">
+         routerLinkActive="font-bold border-b-2"
+         class="text-[13.5px] font-medium pb-0.5 transition"
+         style="color: var(--navbar-text);"
+         onmouseover="this.style.color='var(--primary-color)'"
+         onmouseout="this.style.color='var(--navbar-text)'">
         Help
       </a>
     </nav>
 
     <!-- ACTIONS -->
     <div class="flex items-center gap-1">
-
-      <!-- Account -->
-      <a routerLink="/auth/login"
-         class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-orange-50 hover:text-orange-500 text-slate-500 transition">
+      <a [routerLink]="isLoggedIn ? '/account/profile' : '/auth/login'"
+         class="w-9 h-9 flex items-center justify-center rounded-lg transition"
+         style="color: var(--navbar-text);"
+         onmouseover="this.style.color='var(--primary-color)'"
+         onmouseout="this.style.color='var(--navbar-text)'">
         👤
       </a>
-
-      <!-- Cart -->
       <a routerLink="/cart"
-         class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-orange-50 hover:text-orange-500 text-slate-500 transition">
-
+         class="relative w-9 h-9 flex items-center justify-center rounded-lg transition"
+         style="color: var(--navbar-text);"
+         onmouseover="this.style.color='var(--primary-color)'"
+         onmouseout="this.style.color='var(--navbar-text)'">
         🛒
-
         <span *ngIf="cartCount > 0"
-              class="absolute -top-1 -right-1 bg-slate-900 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">
+              class="absolute -top-1 -right-1 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full"
+              style="background-color: var(--primary-color);">
           {{ cartCount }}
         </span>
       </a>
-
-      <!-- Divider -->
-      <div class="hidden md:block w-px h-4 bg-slate-200 mx-2"></div>
-
-      <!-- Orders -->
-      <a routerLink="/account/orders"
-         class="hidden md:flex text-[13px] text-slate-500 hover:text-slate-900 px-3 py-1 rounded-lg hover:bg-slate-100">
-        My Orders
-      </a>
-
-      <!-- Hamburger -->
       <button (click)="toggleMenu()"
               class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[4px] rounded-lg hover:bg-slate-100">
-
-        <span class="w-5 h-[2px] bg-slate-800 transition"
-              [class.rotate-45]="menuOpen"
-              [class.translate-y-[6px]]="menuOpen"></span>
-
-        <span class="w-5 h-[2px] bg-slate-800 transition"
-              [class.opacity-0]="menuOpen"></span>
-
-        <span class="w-5 h-[2px] bg-slate-800 transition"
-              [class.-rotate-45]="menuOpen"
-              [class.-translate-y-[6px]]="menuOpen"></span>
-
+        <span class="w-5 h-[2px] bg-slate-800 transition"></span>
+        <span class="w-5 h-[2px] bg-slate-800 transition"></span>
+        <span class="w-5 h-[2px] bg-slate-800 transition"></span>
       </button>
-
     </div>
   </div>
 
   <!-- MOBILE MENU -->
   <div *ngIf="menuOpen"
-       class="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl">
-
+       class="md:hidden border-t border-slate-200 backdrop-blur-xl"
+       style="background-color: var(--navbar-bg);">
     <nav class="flex flex-col px-6 py-2">
-
-      <a routerLink="/" (click)="closeMenu()" class="py-3 border-b border-slate-100">Home</a>
-      <a routerLink="/shop" (click)="closeMenu()" class="py-3 border-b border-slate-100">Shop</a>
-      <a routerLink="/help" (click)="closeMenu()" class="py-3 border-b border-slate-100">Help</a>
-      <a routerLink="/account/orders" (click)="closeMenu()" class="py-3 border-b border-slate-100">My Orders</a>
-      <a routerLink="/auth/login" (click)="closeMenu()" class="py-3">Sign In</a>
-
+      <a routerLink="/" (click)="closeMenu()"
+         class="py-3 border-b border-slate-100"
+         style="color: var(--navbar-text);">Home</a>
+      <a routerLink="/shop" (click)="closeMenu()"
+         class="py-3 border-b border-slate-100"
+         style="color: var(--navbar-text);">Shop</a>
+      <a routerLink="/help" (click)="closeMenu()"
+         class="py-3 border-b border-slate-100"
+         style="color: var(--navbar-text);">Help</a>
+      <a *ngIf="isLoggedIn" routerLink="/account/profile" (click)="closeMenu()"
+         class="py-3 border-b border-slate-100"
+         style="color: var(--navbar-text);">My Profile</a>
+      <a *ngIf="!isLoggedIn" routerLink="/auth/login" (click)="closeMenu()"
+         class="py-3"
+         style="color: var(--navbar-text);">Sign In</a>
     </nav>
-
   </div>
 </header>

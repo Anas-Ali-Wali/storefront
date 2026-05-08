@@ -10,7 +10,9 @@ import { AuthGuard } from '../../core/guards/auth.guard';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'profile', component: AccountProfileComponent, canActivate: [AuthGuard] },
+      // { path: 'profile', component: AccountProfileComponent, canActivate: [AuthGuard] },
+        { path: 'profile', component: AccountProfileComponent },  // ✅ guard hatao
+
       { path: 'orders', component: AccountOrdersComponent, canActivate: [AuthGuard] },
     ]),
   ],

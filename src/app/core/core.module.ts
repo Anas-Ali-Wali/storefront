@@ -9,6 +9,7 @@ import { OrderService } from './services/order.service';
 import { AuthService } from './services/auth.service';
 import { CmsService } from './services/cms.service';
 import { TenantInterceptor } from './interceptors/jwt.interceptor';
+import { TenantSliderService } from './services/tenant-slider.service';
 
 // @NgModule({
 //   imports: [HttpClientModule],
@@ -33,6 +34,7 @@ import { TenantInterceptor } from './interceptors/jwt.interceptor';
     OrderService,
     AuthService,
     CmsService,
+    TenantSliderService,  // ← yeh add karo
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TenantInterceptor,

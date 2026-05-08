@@ -1,163 +1,145 @@
-﻿<div class="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8">
+﻿<div class="mx-auto max-w-6xl px-4 sm:px-6 py-6 sm:py-8"
+     style="background-color: var(--bg-color);">
 
-  <!-- Header -->
   <div class="mb-6 sm:mb-8">
-    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-orange-500 mb-1">
-      Shopping Cart
-    </p>
-
-    <h1 class="text-2xl sm:text-3xl font-semibold text-slate-900">
-      Review your order
-    </h1>
-
-    <p class="mt-1 text-xs sm:text-sm text-slate-500">
+    <p class="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] mb-1"
+       style="color: var(--primary-color);">Shopping Cart</p>
+    <h1 class="text-2xl sm:text-3xl font-semibold"
+        style="color: var(--text-color);">Review your order</h1>
+    <p class="mt-1 text-xs sm:text-sm opacity-60"
+       style="color: var(--text-color);">
       Confirm quantities, update items, and checkout securely.
     </p>
   </div>
 
   <!-- Empty State -->
   <div *ngIf="cartItems.length === 0"
-    class="rounded-2xl border border-dashed border-slate-200 bg-white p-8 sm:p-12 text-center">
-
-    <p class="text-base font-semibold text-slate-900">Your cart is empty</p>
-    <p class="mt-1 text-sm text-slate-500">Add products from the shop page to begin checkout.</p>
-
+       class="rounded-2xl border border-dashed p-8 sm:p-12 text-center"
+       style="background-color: var(--card-bg); border-color: rgba(128,128,128,0.2);">
+    <p class="text-base font-semibold" style="color: var(--card-text);">Your cart is empty</p>
+    <p class="mt-1 text-sm opacity-60" style="color: var(--card-text);">
+      Add products from the shop page to begin checkout.
+    </p>
     <a routerLink="/shop"
-      class="mt-6 inline-flex w-full sm:w-auto justify-center rounded-full bg-orange-600 px-6 py-3 text-sm font-medium text-white hover:bg-orange-700 transition">
+       class="mt-6 inline-flex w-full sm:w-auto justify-center rounded-full px-6 py-3 text-sm font-medium transition"
+       style="background-color: var(--button-color); color: var(--button-text-color);">
       Shop now
     </a>
   </div>
 
   <!-- CART GRID -->
   <div *ngIf="cartItems.length > 0"
-    class="grid grid-cols-1 lg:grid-cols-[1.8fr_0.8fr] gap-6 lg:gap-8 items-start">
+       class="grid grid-cols-1 lg:grid-cols-[1.8fr_0.8fr] gap-6 lg:gap-8 items-start">
 
     <!-- LEFT: ITEMS -->
     <div class="space-y-4">
-
       <div *ngFor="let item of cartItems"
-        class="grid grid-cols-1 sm:grid-cols-[100px_1fr] gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 hover:shadow-sm transition">
+           class="grid grid-cols-1 sm:grid-cols-[100px_1fr] gap-4 rounded-2xl border p-4 sm:p-5 hover:shadow-sm transition"
+           style="background-color: var(--card-bg); border-color: rgba(128,128,128,0.15);">
 
-        <!-- IMAGE -->
         <img [src]="item.imageUrl"
-          class="h-24 w-24 sm:h-[104px] sm:w-[104px] rounded-xl object-cover bg-slate-100 mx-auto sm:mx-0"
-          alt="{{ item.name }}" />
+             class="h-24 w-24 sm:h-[104px] sm:w-[104px] rounded-xl object-cover mx-auto sm:mx-0"
+             style="background-color: var(--bg-color);"
+             alt="{{ item.name }}" />
 
-        <!-- CONTENT -->
         <div class="flex flex-col justify-between gap-4">
-
-          <!-- TOP -->
           <div class="flex flex-col sm:flex-row sm:justify-between gap-3">
-
             <div>
-              <span
-                class="inline-block text-[10px] font-semibold uppercase tracking-[0.15em]
-                text-orange-600 bg-orange-50 rounded-md px-2 py-0.5 mb-1">
+              <span class="inline-block text-[10px] font-semibold uppercase tracking-[0.15em] rounded-md px-2 py-0.5 mb-1"
+                    style="color: var(--button-text-color); background-color: var(--primary-color);">
                 {{ item.badge ?? 'Product' }}
               </span>
-
-              <h2 class="text-sm font-semibold text-slate-900">
+              <h2 class="text-sm font-semibold" style="color: var(--card-text);">
                 {{ item.name }}
               </h2>
-
-              <p class="text-xs text-slate-400">
+              <p class="text-xs opacity-50" style="color: var(--card-text);">
                 {{ item.variant }}
               </p>
             </div>
-
-            <p class="text-sm font-semibold text-slate-900">
+            <p class="text-sm font-semibold" style="color: var(--primary-color);">
               {{ item.price | currency:'PKR':'symbol':'1.0-0' }}
             </p>
           </div>
 
-          <!-- BOTTOM -->
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-
             <!-- QTY -->
-            <div
-              class="inline-flex items-center justify-between sm:justify-start gap-3
-              rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 w-full sm:w-auto">
-
+            <div class="inline-flex items-center justify-between sm:justify-start gap-3
+                        rounded-full border px-3 py-1.5 w-full sm:w-auto"
+                 style="background-color: var(--bg-color); border-color: rgba(128,128,128,0.2);">
               <button type="button"
-                class="h-7 w-7 rounded-full bg-white border border-slate-200"
-                (click)="updateQty(item.productId, item.quantity - 1)">
-                −
-              </button>
-
-              <span class="text-sm font-semibold min-w-[20px] text-center">
-                {{ item.quantity }}
-              </span>
-
+                      class="h-7 w-7 rounded-full border transition"
+                      style="background-color: var(--card-bg);
+                             border-color: rgba(128,128,128,0.2);
+                             color: var(--card-text);"
+                      (click)="updateQty(item.productId, item.quantity - 1)">−</button>
+              <span class="text-sm font-semibold min-w-[20px] text-center"
+                    style="color: var(--card-text);">{{ item.quantity }}</span>
               <button type="button"
-                class="h-7 w-7 rounded-full bg-white border border-slate-200"
-                (click)="updateQty(item.productId, item.quantity + 1)">
-                +
-              </button>
+                      class="h-7 w-7 rounded-full border transition"
+                      style="background-color: var(--card-bg);
+                             border-color: rgba(128,128,128,0.2);
+                             color: var(--card-text);"
+                      (click)="updateQty(item.productId, item.quantity + 1)">+</button>
             </div>
-
             <!-- REMOVE -->
             <button type="button"
-              class="text-xs text-slate-400 border border-slate-200 rounded-lg px-3 py-2
-              hover:text-red-500 hover:border-red-300 transition w-full sm:w-auto"
-              (click)="removeItem(item.productId)">
-              Remove
-            </button>
-
+                    class="text-xs border rounded-lg px-3 py-2 transition w-full sm:w-auto"
+                    style="color: var(--card-text); border-color: rgba(128,128,128,0.2);"
+                    (click)="removeItem(item.productId)">Remove</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- RIGHT: SUMMARY -->
-    <aside
-      class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 lg:sticky lg:top-6">
+    <aside class="rounded-2xl border p-5 sm:p-6 lg:sticky lg:top-6"
+           style="background-color: var(--card-bg); border-color: rgba(128,128,128,0.15);">
 
-      <h2 class="text-base font-semibold text-slate-900 mb-4">
+      <h2 class="text-base font-semibold mb-4" style="color: var(--card-text);">
         Order summary
       </h2>
 
-      <div class="space-y-2 text-sm text-slate-500">
-
+      <div class="space-y-2 text-sm">
         <div class="flex justify-between">
-          <span>Subtotal</span>
-          <span class="text-slate-800 font-medium">
+          <span style="color: var(--card-text); opacity: 0.6;">Subtotal</span>
+          <span class="font-medium" style="color: var(--card-text);">
             {{ subtotal | currency:'PKR':'symbol':'1.0-0' }}
           </span>
         </div>
-
         <div class="flex justify-between">
-          <span>Shipping</span>
-          <span class="text-slate-800 font-medium">
+          <span style="color: var(--card-text); opacity: 0.6;">Shipping</span>
+          <span class="font-medium" style="color: var(--card-text);">
             {{ shipping | currency:'PKR':'symbol':'1.0-0' }}
           </span>
         </div>
-
         <div class="flex justify-between">
-          <span>Tax</span>
-          <span class="text-slate-800 font-medium">
+          <span style="color: var(--card-text); opacity: 0.6;">Tax</span>
+          <span class="font-medium" style="color: var(--card-text);">
             {{ tax | currency:'PKR':'symbol':'1.0-0' }}
           </span>
         </div>
       </div>
 
-      <div class="border-t mt-3 pt-3 flex justify-between font-semibold">
+      <div class="border-t mt-3 pt-3 flex justify-between font-semibold"
+           style="border-color: rgba(128,128,128,0.2); color: var(--card-text);">
         <span>Total</span>
-        <span>{{ total | currency:'PKR':'symbol':'1.0-0' }}</span>
+        <span style="color: var(--primary-color);">
+          {{ total | currency:'PKR':'symbol':'1.0-0' }}
+        </span>
       </div>
 
       <!-- COUPON -->
       <div class="mt-5">
-        <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-2">
-          Coupon code
-        </p>
-
+        <p class="text-[10px] uppercase tracking-widest mb-2 opacity-50"
+           style="color: var(--card-text);">Coupon code</p>
         <div class="flex flex-col sm:flex-row gap-2">
-          <input type="text"
-            placeholder="Enter code"
-            class="flex-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm" />
-
-          <button
-            class="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white">
+          <input type="text" placeholder="Enter code"
+                 class="flex-1 rounded-lg border px-3 py-2 text-sm outline-none"
+                 style="background-color: var(--bg-color);
+                        border-color: rgba(128,128,128,0.2);
+                        color: var(--card-text);" />
+          <button class="rounded-lg px-4 py-2 text-xs font-semibold transition"
+                  style="background-color: var(--button-color); color: var(--button-text-color);">
             Apply
           </button>
         </div>
@@ -165,14 +147,14 @@
 
       <!-- CHECKOUT -->
       <a routerLink="/checkout"
-        class="mt-5 flex w-full items-center justify-center gap-2 rounded-full
-        bg-orange-500 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition">
-
+         class="mt-5 flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition"
+         style="background-color: var(--button-color); color: var(--button-text-color);">
         Proceed to checkout →
       </a>
 
       <!-- INFO -->
-      <div class="mt-4 space-y-2 text-xs text-slate-400">
+      <div class="mt-4 space-y-2 text-xs opacity-40"
+           style="color: var(--card-text);">
         <p>• Secure checkout</p>
         <p>• Fast delivery available</p>
       </div>

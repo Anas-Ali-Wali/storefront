@@ -1,1 +1,8 @@
-section { min-height: calc(100vh - 180px); }
+/* section { min-height: calc(100vh - 180px); } */
+
+
+:host {
+  display: block;
+  min-height: calc(100vh - 56px);
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+}

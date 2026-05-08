@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { TenantResolverService } from './tenant-resolver.service';
 
 export interface LoginPayload {
+    tenantId: number;  // ✅ add karo
   email: string;
   password: string;
 }
@@ -35,24 +36,39 @@ export class AuthService {
   constructor(private api: ApiService,     private tenantResolver: TenantResolverService // ✅ ADD
 ) {}
 
+  // login(payload: LoginPayload): Observable<LoginResponseData> {
+  //   return this.api.post<any>('/auth/login', payload).pipe(
+  //     tap((res) => {
+  //       // Admin panel stores: res.data.token  ← this is your structure
+  //       if (res?.success && res?.data?.token) {
+  //         localStorage.setItem(this.tokenKey, res.data.token);
+  //         localStorage.setItem(this.userKey, JSON.stringify(res.data));
+  //       }
+  //     }),
+  //     map((res) => res.data)
+  //   );
+  // }
+
   login(payload: LoginPayload): Observable<LoginResponseData> {
-    return this.api.post<any>('/auth/login', payload).pipe(
-      tap((res) => {
-        // Admin panel stores: res.data.token  ← this is your structure
-        if (res?.success && res?.data?.token) {
-          localStorage.setItem(this.tokenKey, res.data.token);
-          localStorage.setItem(this.userKey, JSON.stringify(res.data));
-        }
-      }),
-      map((res) => res.data)
-    );
-  }
+  return this.api.post<any>('/Customer/login', payload).pipe(  // ✅ /auth/login → /Customer/login
+    tap((res) => {
+      if (res?.success && res?.data?.token) {
+        localStorage.setItem(this.tokenKey, res.data.token);
+        localStorage.setItem(this.userKey, JSON.stringify(res.data));
+      }
+    }),
+    map((res) => res.data)
+  );
+}
 
-  // Register = POST /Customer/create  (matches admin panel)
+  // // Register = POST /Customer/create  (matches admin panel)
+  // register(payload: RegisterPayload): Observable<any> {
+  //   return this.api.post<any>('/Customer/create', payload);
+  // }
+
   register(payload: RegisterPayload): Observable<any> {
-    return this.api.post<any>('/Customer/create', payload);
-  }
-
+  return this.api.post<any>('/Customer/register', payload);  // ✅ /Customer/create → /Customer/register
+}
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);

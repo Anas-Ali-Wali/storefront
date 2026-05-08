@@ -29,17 +29,40 @@ export class AccountOrdersComponent {
   //   });
   // }
 
-  ngOnInit(): void {
+  
+
+//   ngOnInit(): void {
+//   const tenantId = this.authService.getTenantId();
+
+//   if (!tenantId) {
+//     this.loading = false;
+//     return;
+//   }
+
+//   this.orderService.getMyOrders(tenantId).subscribe({
+//     next: (res) => {
+//       this.orders = res?.items || [];
+//       this.loading = false;
+//     },
+//     error: () => (this.loading = false)
+//   });
+// }
+
+
+// orders.component.ts
+ngOnInit(): void {
+  const user = this.authService.getUser();
   const tenantId = this.authService.getTenantId();
 
-  if (!tenantId) {
+  if (!user?.customerId || !tenantId) {
     this.loading = false;
     return;
   }
 
-  this.orderService.getMyOrders(tenantId).subscribe({
+  // ✅ Customer ke apne orders — userId se
+  this.orderService.getOrdersByUser(tenantId, user.customerId).subscribe({
     next: (res) => {
-      this.orders = res?.items || [];
+      this.orders = res?.data || res?.items || res || [];
       this.loading = false;
     },
     error: () => (this.loading = false)

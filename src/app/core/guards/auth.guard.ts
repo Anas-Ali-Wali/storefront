@@ -6,11 +6,21 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard  implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
+// canActivate(): boolean {
+//   if (this.auth.isLoggedIn() && this.auth.getTenantId()) {
+//     return true;
+//   }
+//   this.auth.logout(); // stale/incomplete data clear karo
+//   this.router.navigate(['/auth/login']);
+//   return false;
+// }
+
+
+// auth.guard.ts
 canActivate(): boolean {
-  if (this.auth.isLoggedIn() && this.auth.getTenantId()) {
+  if (this.auth.isLoggedIn()) {  // ✅ sirf login check karo
     return true;
   }
-  this.auth.logout(); // stale/incomplete data clear karo
   this.router.navigate(['/auth/login']);
   return false;
 }

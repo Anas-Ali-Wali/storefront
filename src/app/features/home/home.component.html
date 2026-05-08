@@ -1,4 +1,4 @@
-﻿<div class="min-h-screen bg-white">
+﻿<!-- <div class="min-h-screen bg-white">
 
   <div *ngIf="loading" class="flex min-h-[50vh] items-center justify-center">
     <app-loader></app-loader>
@@ -19,6 +19,30 @@
       [section]="section">
     </app-section-renderer>
     <div *ngIf="!sections.length" class="py-16 text-center text-slate-500">
+      <p>No homepage content configured yet.</p>
+    </div>
+  </div>
+
+</div> -->
+
+
+
+<div class="min-h-screen" style="background-color: var(--bg-color);">
+
+  <div *ngIf="loading" class="flex min-h-[50vh] items-center justify-center">
+    <app-loader></app-loader>
+  </div>
+
+  <div *ngIf="!loading" class="space-y-8">
+    <app-section-renderer
+      *ngFor="let section of sectionsToRender"
+      [section]="section">
+    </app-section-renderer>
+
+    <!-- Sirf tab dikhao jab koi bhi section nahi aur hero bhi nahi (edge case) -->
+    <div *ngIf="sectionsToRender.length === 0" 
+         class="py-16 text-center" 
+         style="color: var(--text-color); opacity: 0.5;">
       <p>No homepage content configured yet.</p>
     </div>
   </div>

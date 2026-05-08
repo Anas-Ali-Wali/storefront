@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FullSection } from '../../../core/services/cms.service';
 import {  CategoryResponseDto, CategoryService } from '../../../core/services/category.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-category-grid',
@@ -24,6 +24,7 @@ export class CategoryGridComponent implements OnInit {
     const tenantId = this.auth.getTenantId() ?? 0;
 
     this.categoryService.getCategoriesByTenant(tenantId).subscribe({
+          // next: (cats) => this.categories = cats.slice(0, 8), // ← sirf 8
       next: (cats) => this.categories = cats,
       error: (err) => console.error(err)
     });

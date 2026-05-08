@@ -16,12 +16,21 @@ export class CartComponent {
 
   constructor(private cartService: CartService) {}
 
+  // ngOnInit(): void {
+  //   this.cartService.cart$.subscribe((items) => {
+  //     this.cartItems = items;
+  //     this.total = this.cartService.getTotal();
+  //   });
+  // }
+
   ngOnInit(): void {
-    this.cartService.cart$.subscribe((items) => {
-      this.cartItems = items;
-      this.total = this.cartService.getTotal();
-    });
-  }
+  this.cartService.cart$.subscribe((items) => {
+    this.cartItems = items;
+    this.subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0); // ✅
+    this.tax = Math.round(this.subtotal * 0.05); // ✅ 5% tax
+    this.total = this.subtotal + this.shipping + this.tax; // ✅
+  });
+}
 
   updateQty(productId: number, quantity: number): void {
     if (quantity < 1) {

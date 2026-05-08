@@ -14,7 +14,7 @@ export class CheckoutComponent {
   shippingMethod = 'standard';
   customerAddress = '';
   city = '';
-  paymentMethod = 'Cash';
+paymentMethod = 'COD';
   cartItems = this.cartService.getItems();
   total = this.cartService.getTotal();
   loading = false;
@@ -44,8 +44,10 @@ export class CheckoutComponent {
     if (!this.customerName) return;
     this.loading = true;
     const tenantId = this.auth.getTenantId() ?? 0; // ← DYNAMIC
+      const user = this.auth.getUser(); // ✅ user lo
     this.orderService.createOrder({
       tenantId: tenantId,
+      userId: user?.customerId ?? null, // ✅ ye add karo
       customerName: this.customerName,
       customerEmail: this.customerEmail,
       customerPhone: this.customerPhone,

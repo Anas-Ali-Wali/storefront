@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 
 export interface OrderCreatePayload {
   tenantId: number;
+  userId?: number | null;  // ✅ add karo
   customerName: string;
   customerEmail?: string;
   customerPhone?: string;
@@ -76,4 +77,12 @@ export class OrderService {
       .get<any>(`/order/tenant/${tenantId}`, { pageNumber, pageSize })
       .pipe(map((res) => res.data));
   }
+
+
+  // new
+// order.service.ts
+getOrdersByUser(tenantId: number, userId: number): Observable<any> {
+  // Query params mat bhejo — sirf JWT token se authenticate hoga
+  return this.api.get<any>(`/Customer/my-orders`);  // ✅ no params needed
+}
 }

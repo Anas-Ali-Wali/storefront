@@ -11,6 +11,8 @@ export class LoginComponent {
   email = '';
   password = '';
   error = '';
+  loading = false;  // ✅ add
+
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -20,17 +22,57 @@ export class LoginComponent {
   //   });
   // }
   // login.component.ts - FIXED
+
+
+
+// submit(): void {
+//   this.auth.login({ email: this.email, password: this.password }).subscribe({
+//     next: (user) => {
+//       if (!user?.tenantId) {
+//         this.error = 'Invalid account. No tenant assigned.';
+//         return;
+//       }
+//       this.router.navigate(['/']); // tenantId confirm hone ke baad navigate karo
+//     },
+//     error: () => {
+//       this.error = 'Invalid email or password.';
+//     }
+//   });
+// }
+
+
+
 submit(): void {
-  this.auth.login({ email: this.email, password: this.password }).subscribe({
+  const tenantId = this.auth.getTenantId();
+
+  if (!tenantId) {
+    this.error = 'Tenant not found.';
+    return;
+  }
+
+  this.loading = true;
+  this.error = '';
+
+  this.auth.login({ 
+    tenantId,
+    email: this.email, 
+    password: this.password 
+  }).subscribe({
     next: (user) => {
+      this.loading = false;
       if (!user?.tenantId) {
-        this.error = 'Invalid account. No tenant assigned.';
+        this.error = 'Invalid account.';
         return;
       }
-      this.router.navigate(['/']); // tenantId confirm hone ke baad navigate karo
+      this.router.navigate(['/account/profile']);
     },
-    error: () => {
-      this.error = 'Invalid email or password.';
+    error: (err) => {
+      this.loading = false;
+      if (err?.status === 401) {
+        this.error = 'Account not found. Please register first.';  // ✅
+      } else {
+        this.error = 'Something went wrong. Try again.';
+      }
     }
   });
 }
