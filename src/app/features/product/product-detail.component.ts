@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductResponseDto, ProductService } from '../../core/services/product.service';
 import { CartItem, CartService } from '../../core/services/cart.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-detail',

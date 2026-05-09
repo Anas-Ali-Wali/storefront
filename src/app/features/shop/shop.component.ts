@@ -4,7 +4,8 @@ import { Product, ProductResponseDto, ProductService, PaginatedProducts } from '
 import { CategoryResponseDto, CategoryService } from 'src/app/core/services/category.service';
 import { CartItem, CartService } from 'src/app/core/services/cart.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-shop',

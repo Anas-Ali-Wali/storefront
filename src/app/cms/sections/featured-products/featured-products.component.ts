@@ -3,7 +3,8 @@ import { FullSection, SectionDataResponseDto, } from '../../../core/services/cms
 import { Product, ProductResponseDto, ProductService, PaginatedProducts } from '../../../core/services/product.service';
 import { CartItem, CartService } from 'src/app/core/services/cart.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
+// import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-featured-products',
