@@ -1,8 +1,3 @@
-/* ══════════════════════════════════════════════════
-   HERO BANNER — LUXURY MULTI-LAYOUT SLIDER
-   Supports: full-image | text-only | split-left | split-right
-══════════════════════════════════════════════════ */
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
 
 /* ── Root ── */
@@ -20,15 +15,19 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: inherit;
 }
 
 /* ── Individual Slide ── */
 .slide {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  overflow: hidden;
 }
 
 .slide.active {
@@ -73,60 +72,46 @@
 }
 
 /* ════════════════════════════════════
-   LAYOUT 2 — TEXT ONLY (Solid BG)
+   LAYOUT 2 — TEXT ONLY
 ════════════════════════════════════ */
 .slide-solid-bg {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   overflow: hidden;
 }
 
-.solid-deco-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.solid-deco-circle.c1 {
-  width: 600px;
-  height: 600px;
-  top: -200px;
-  right: -150px;
-}
-
-.solid-deco-circle.c2 {
-  width: 400px;
-  height: 400px;
-  bottom: -180px;
-  left: -80px;
-}
-
+/* LINE AUR CIRCLES HAMESHA HIDDEN */
 .solid-deco-line {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.08);
+  display: none !important;
+}
+
+.solid-deco-circle {
+  display: none !important;
 }
 
 .layout-center {
   position: relative;
   z-index: 2;
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 6vw;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .text-center-block {
+  width: 100%;
   max-width: 680px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .display-title {
@@ -136,7 +121,7 @@
 }
 
 /* ════════════════════════════════════
-   LAYOUT 3 & 4 — SPLIT LAYOUTS
+   LAYOUT 3 & 4 — SPLIT
 ════════════════════════════════════ */
 .slide-split {
   display: flex;
@@ -207,11 +192,7 @@
 .split-img-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.12) 0%,
-    rgba(0, 0, 0, 0) 60%
-  );
+  background: linear-gradient(to right, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 60%);
 }
 
 /* ════════════════════════════════════
@@ -249,6 +230,8 @@
   letter-spacing: -0.02em;
   color: #ffffff;
   margin: 0 0 18px 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .slide-subtitle {
@@ -259,22 +242,16 @@
   color: rgba(255, 255, 255, 0.78);
   margin: 0 0 36px 0;
   max-width: 420px;
+  word-break: break-word;
 }
 
-/* ── Animate active slide content ── */
 .slide.active .text-block {
   animation: luxuryReveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 @keyframes luxuryReveal {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ════════════════════════════════════
@@ -299,7 +276,7 @@
 
 .slide-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   opacity: 0.92;
 }
 
@@ -310,7 +287,7 @@
 }
 
 .btn-outline-luxury:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255,255,255,0.1) !important;
 }
 
 .btn-arrow {
@@ -340,8 +317,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.5);
   cursor: pointer;
   padding: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -362,8 +339,8 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
   color: #fff;
   width: 48px;
   height: 48px;
@@ -377,8 +354,8 @@
 }
 
 .arrow:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.4);
   transform: translateY(-50%) scale(1.06);
 }
 
@@ -386,7 +363,7 @@
 .arrow-right { right: 28px; }
 
 /* ════════════════════════════════════
-   SLIDE COUNTER (bottom right)
+   SLIDE COUNTER
 ════════════════════════════════════ */
 .slide-counter {
   position: absolute;
@@ -410,13 +387,13 @@
   display: block;
   width: 30px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255,255,255,0.45);
 }
 
 .counter-total {
   font-size: 0.8rem;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255,255,255,0.5);
 }
 
 /* ════════════════════════════════════
@@ -441,7 +418,7 @@
 .spin-ring {
   position: absolute;
   inset: 0;
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(0,0,0,0.08);
   border-top-color: #1a1a2e;
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
@@ -452,81 +429,205 @@
 }
 
 /* ════════════════════════════════════
-   RESPONSIVE
+   TABLET (max 1024px)
 ════════════════════════════════════ */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero-section {
-    height: auto;
-    min-height: 100vw;
+    height: 75vh;
+    min-height: 480px;
   }
 
+  .layout-full { padding: 0 5vw; }
+  .layout-full .text-block { max-width: 460px; }
+  .slide-title { font-size: clamp(1.9rem, 3.8vw, 3.2rem); }
+  .split-text-side { flex: 0 0 50%; padding: 4vw; }
+  .split-image-side { flex: 0 0 50%; }
+  .arrow-left  { left: 16px; }
+  .arrow-right { right: 16px; }
+}
+
+/* ════════════════════════════════════
+   MOBILE (max 768px)
+════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  .hero-section {
+    height: 85vw;
+    min-height: 320px;
+    max-height: 520px;
+  }
+
+  .slides-wrapper {
+    height: 100%;
+    min-height: inherit;
+  }
+
+  /* SPLIT layouts ko alag height chahiye */
+  .hero-section:has(.slide.active[data-layout="split-left"]),
+  .hero-section:has(.slide.active[data-layout="split-right"]) {
+    height: auto;
+    min-height: 460px;
+    max-height: none;
+  }
+
+  /* FULL IMAGE */
+  .layout-full {
+    padding: 0 16px 50px;
+    align-items: flex-end;
+  }
+
+  .layout-full .text-block {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* TEXT ONLY */
+  .layout-center {
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .text-center-block {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* SPLIT */
   .slide-split,
   .slide-split.split-reverse {
-    flex-direction: column;
+    flex-direction: column !important;
+    height: 100%;
+  }
+
+  .split-image-side {
+    flex: 0 0 200px !important;
+    min-height: 200px;
+    max-height: 220px;
+    transform: none !important;
+  }
+
+  .slide.active .split-image-side {
+    transform: none !important;
   }
 
   .split-text-side {
-    flex: 0 0 50%;
-    padding: 8vw 6vw;
+    flex: 1 !important;
+    padding: 20px 16px !important;
     justify-content: center;
   }
 
   .split-text-block {
     max-width: 100%;
+    width: 100%;
     text-align: center;
-  }
-
-  .split-image-side {
-    flex: 0 0 50%;
-    min-height: 280px;
+    box-sizing: border-box;
   }
 
   .split-deco-line,
-  .split-reverse .split-deco-line {
-    display: none;
+  .split-reverse .split-deco-line { display: none !important; }
+
+  /* TEXT SIZES */
+  .slide-title {
+    font-size: clamp(1.5rem, 5.5vw, 2rem) !important;
+    margin-bottom: 10px;
+    white-space: normal;
   }
 
-  .slide-counter {
-    display: none;
+  .display-title {
+    font-size: clamp(1.7rem, 6.5vw, 2.6rem) !important;
   }
 
-  .arrow-left  { left: 14px; }
-  .arrow-right { right: 14px; }
+  .split-title {
+    font-size: clamp(1.3rem, 5vw, 1.8rem) !important;
+  }
+
+  .slide-subtitle {
+    font-size: 0.82rem;
+    margin-bottom: 18px;
+    max-width: 100%;
+  }
+
+  .luxury-tag {
+    font-size: 0.6rem;
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+
+  /* BUTTONS */
+  .slide-btn {
+    padding: 10px 20px;
+    font-size: 0.74rem;
+  }
+
+  /* ARROWS */
+  .arrow { width: 36px; height: 36px; }
+  .arrow-left  { left: 10px; }
+  .arrow-right { right: 10px; }
+
+  /* HIDE */
+  .slide-counter { display: none; }
+
+  /* DOTS */
+  .dots { bottom: 12px; }
+
+  /* LOADING */
+  .hero-loading,
+  .hero-empty {
+    height: 85vw;
+    min-height: 260px;
+  }
 }
 
-@media (max-width: 600px) {
+/* ════════════════════════════════════
+   SMALL MOBILE (max 480px)
+════════════════════════════════════ */
+@media (max-width: 480px) {
   .hero-section {
-    height: auto;
-    min-height: 80vw;
+    height: 95vw;
+    min-height: 300px;
+    max-height: 460px;
+  }
+
+  .slide-title    { font-size: 1.4rem !important; }
+  .display-title  { font-size: 1.7rem !important; }
+  .split-title    { font-size: 1.2rem !important; }
+
+  .slide-btn {
+    padding: 9px 16px;
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+
+  .arrow { width: 30px; height: 30px; }
+
+  .eyebrow {
+    font-size: 0.58rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.2em;
+  }
+
+  .luxury-tag {
+    font-size: 0.56rem;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    letter-spacing: 0.2em;
+  }
+
+  .slide-subtitle {
+    font-size: 0.76rem;
+    margin-bottom: 14px;
+  }
+
+  .layout-full {
+    padding: 0 14px 44px;
   }
 
   .hero-loading,
   .hero-empty {
-    height: 70vw;
-    min-height: 300px;
+    height: 95vw;
+    min-height: 240px;
   }
-
-  .slide-title {
-    font-size: 1.8rem !important;
-  }
-
-  .display-title {
-    font-size: 2.2rem !important;
-  }
-
-  .slide-btn {
-    padding: 12px 24px;
-    font-size: 0.78rem;
-  }
-}
-
-
-
-
-
-
-/* Hide deco lines and circles */
-.solid-deco-line,
-.solid-deco-circle {
-  display: none;
 }
