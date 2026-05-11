@@ -107,6 +107,49 @@
         <span *ngIf="product.stockQty === 0" class="stock-text out">Out of Stock</span>
       </div>
 
+      <!-- SIZES — sirf tab dikhao agar hain -->
+<div *ngIf="product.sizes && product.sizes.length > 0" style="margin-bottom: 1.75rem;">
+  <p class="section-label">Size
+    <span *ngIf="selectedSize" class="selected-val">— {{ selectedSize }}</span>
+  </p>
+  <div class="size-grid">
+    <button
+      *ngFor="let s of product.sizes"
+      class="size-btn"
+      [class.selected]="selectedSize === s"
+      (click)="selectSize(s)">
+      {{ s }}
+    </button>
+  </div>
+</div>
+
+<!-- COLORS — sirf tab dikhao agar hain -->
+<div *ngIf="product.colors && product.colors.length > 0" style="margin-bottom: 1.75rem;">
+  <p class="section-label">Color
+    <span *ngIf="selectedColor" class="selected-val">— {{ selectedColor }}</span>
+  </p>
+  <div class="color-row">
+    <button
+      *ngFor="let c of product.colors"
+      class="color-btn"
+      [class.selected]="selectedColor === c"
+      [title]="c"
+      (click)="selectColor(c)">
+      <span class="color-swatch" [style.background]="getColorHex(c)"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Brand & SKU — sirf tab dikhao agar hain -->
+<div *ngIf="product.brand || product.sku" class="meta-row">
+  <span *ngIf="product.brand" class="meta-item">
+    <strong>Brand:</strong> {{ product.brand }}
+  </span>
+  <span *ngIf="product.sku" class="meta-item">
+    <strong>SKU:</strong> {{ product.sku }}
+  </span>
+</div>
+
       <!-- Quantity -->
       <p class="section-label">Quantity</p>
       <div class="qty-row">

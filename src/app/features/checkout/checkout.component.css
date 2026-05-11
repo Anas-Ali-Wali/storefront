@@ -1,10 +1,10 @@
+/* ─── Google Font Import ─── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
 form {
   display: grid;
   gap: 1rem;
 }
-
-/* ─── Google Font Import ─── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
 
 /* ═══════════════════════════════════════
    PAGE SHELL
@@ -72,7 +72,6 @@ form {
   margin: 0;
 }
 
-/* ✅ FIXED: secondary-color → card-bg */
 .header-total-pill {
   background: var(--card-bg);
   border: 1px solid rgba(128, 128, 128, 0.2);
@@ -110,7 +109,7 @@ form {
   align-items: start;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 860px) {
   .checkout-grid {
     grid-template-columns: 1fr;
   }
@@ -128,7 +127,6 @@ form {
 /* ═══════════════════════════════════════
    CARD
 ═══════════════════════════════════════ */
-/* ✅ FIXED: secondary-color → card-bg */
 .card {
   background: var(--card-bg);
   border-radius: 20px;
@@ -145,7 +143,6 @@ form {
   margin-bottom: 28px;
 }
 
-/* ✅ FIXED: secondary-color → primary-color for badge */
 .step-badge {
   width: 34px;
   height: 34px;
@@ -190,10 +187,12 @@ form {
 @media (max-width: 600px) {
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .md-col-span-2 {
-    grid-column: span 1;
+  .md-col-span-2,
+  .md-col-span-1 {
+    grid-column: span 1 !important;
   }
 }
 
@@ -219,6 +218,7 @@ form {
   transition: border-color 0.18s, background 0.18s;
   width: 100%;
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 .field-input::placeholder {
@@ -481,7 +481,6 @@ form {
 /* ═══════════════════════════════════════
    ORDER SUMMARY (RIGHT PANEL)
 ═══════════════════════════════════════ */
-/* ✅ FIXED: secondary-color → card-bg */
 .summary-panel {
   background: var(--card-bg);
   border-radius: 24px;
@@ -650,7 +649,6 @@ form {
   animation: fadeIn 0.3s ease;
 }
 
-/* ✅ FIXED: secondary-color → card-bg */
 .confirm-card {
   background: var(--card-bg);
   border-radius: 20px;
@@ -733,20 +731,30 @@ form {
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes slideUp {
   from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
 /* ═══════════════════════════════════════
-   MOBILE RESPONSIVE
+   TABLET (max 860px)
+═══════════════════════════════════════ */
+@media (max-width: 860px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (max 768px)
 ═══════════════════════════════════════ */
 @media (max-width: 768px) {
   .checkout-main {
-    padding: 24px 16px 60px;
+    padding: 20px 14px 60px;
   }
 
   .checkout-header {
@@ -763,32 +771,19 @@ form {
   .header-total-pill {
     width: 100%;
     justify-content: space-between;
-  }
-
-  .checkout-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    box-sizing: border-box;
   }
 
   .summary-panel {
     order: -1;
     position: static;
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px 16px;
   }
 
   .card {
     padding: 20px 16px;
     border-radius: 16px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .md-col-span-2 {
-    grid-column: span 1;
   }
 
   .shipping-option,
@@ -818,6 +813,24 @@ form {
   }
 }
 
+/* ═══════════════════════════════════════
+   FORM GRID — MOBILE (max 600px)
+═══════════════════════════════════════ */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .md-col-span-2,
+  .md-col-span-1 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ═══════════════════════════════════════
+   SMALL MOBILE (max 480px)
+═══════════════════════════════════════ */
 @media (max-width: 480px) {
   .checkout-main {
     padding: 16px 12px 48px;

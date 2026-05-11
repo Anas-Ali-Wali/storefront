@@ -13,6 +13,6 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://anasali1-001-site1.ltempurl.com/api',
-  apiBase: 'http://anasali1-001-site1.ltempurl.com'
+  apiUrl: 'https://anasali1-001-site1.ltempurl.com/api',
+  apiBase: 'https://anasali1-001-site1.ltempurl.com'
 };

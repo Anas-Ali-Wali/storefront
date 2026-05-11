@@ -3,20 +3,25 @@
   import { map } from 'rxjs/operators';
   import { ApiService } from './api.service';
 
-  export interface ProductResponseDto {
-    productId: number;
-    tenantId: number;
-    name: string;
-    description?: string;
-    price: number;
-    imageUrl?: string;
-    categoryId?: number;
-    stockQty: number;
-    status: boolean;
-    createdDate: string;
-    imagesUrls: string[];
-  }
+export interface ProductResponseDto {
+  productId:   number;
+  tenantId:    number;
+  name:        string;
+  description?: string;
+  price:       number;
+  imageUrl?:   string;
+  categoryId?: number;
+  stockQty:    number;
+  status:      boolean;
+  createdDate: string;
+  imagesUrls:  string[];
 
+  // ✅ Naye fields
+  sizes:   string[];
+  colors:  string[];
+  sku?:    string;
+  brand?:  string;
+}
   // Alias so old components still work
   export type Product = ProductResponseDto;
 

@@ -11,6 +11,9 @@ export interface CartItem {
    // added — needed for stock validation
   badge?: string;    // yeh add karein
   variant?: string;  // yeh add karein
+    selectedSize?:  string;  // ✅
+  selectedColor?: string;  // ✅
+
 
 }
 
