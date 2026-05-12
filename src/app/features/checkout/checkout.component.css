@@ -27,12 +27,23 @@ form {
   z-index: 0;
 }
 
-.checkout-main {
+/* .checkout-main {
   position: relative;
   z-index: 1;
   max-width: 1360px;
   margin: 0 auto;
   padding: 48px 32px 80px;
+} */
+
+
+.checkout-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+  box-sizing: border-box;
 }
 
 /* ═══════════════════════════════════════
@@ -854,5 +865,345 @@ form {
 
   .confirm-card {
     padding: 28px 20px;
+  }
+}
+
+
+
+
+
+
+/* ═══════════════════════════════════════
+   EXTRA MOBILE RESPONSIVE FIXES
+═══════════════════════════════════════ */
+
+/* Prevent horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Images responsive */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Better mobile layout */
+@media (max-width: 768px) {
+
+  .checkout-page {
+    overflow-x: hidden;
+  }
+
+  .checkout-main {
+    padding: 18px 12px 50px;
+  }
+
+  .checkout-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* Summary top on mobile */
+  .summary-panel {
+    order: -1;
+    width: 100%;
+    position: static;
+    top: unset;
+  }
+
+  /* Cards */
+  .card,
+  .summary-panel {
+    border-radius: 18px;
+    padding: 18px 14px;
+  }
+
+  /* Header */
+  .checkout-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .header-title {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .header-sub {
+    font-size: 13px;
+  }
+
+  .header-total-pill {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 16px;
+  }
+
+  .total-amount {
+    font-size: 18px;
+  }
+
+  /* Form */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .field {
+    width: 100%;
+  }
+
+  .field-input {
+    width: 100%;
+    font-size: 14px;
+    padding: 13px 14px;
+  }
+
+  /* Shipping + Payment */
+  .shipping-option,
+  .payment-option {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .shipping-price {
+    font-size: 13px;
+  }
+
+  .payment-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  /* Order items */
+  .summary-item {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .item-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .item-name {
+    font-size: 12px;
+  }
+
+  .item-price {
+    font-size: 12px;
+  }
+
+  .grand-total {
+    font-size: 20px;
+  }
+
+  /* Button */
+  .place-order-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 15px;
+    border-radius: 14px;
+  }
+
+  /* Confirmation modal */
+  .confirm-overlay {
+    padding: 14px;
+  }
+
+  .confirm-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px;
+    padding: 28px 20px;
+  }
+
+  .confirm-title {
+    font-size: 22px;
+  }
+
+  .confirm-msg {
+    font-size: 14px;
+  }
+
+  .continue-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+
+/* Small Phones */
+@media (max-width: 480px) {
+
+  .checkout-main {
+    padding: 14px 10px 40px;
+  }
+
+  .header-title {
+    font-size: 21px;
+  }
+
+  .section-title {
+    font-size: 15px;
+  }
+
+  .step-badge {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .summary-title {
+    font-size: 15px;
+  }
+
+  .grand-total {
+    font-size: 18px;
+  }
+
+  .field-input {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  .shipping-option,
+  .payment-option {
+    padding: 12px;
+  }
+
+  .confirm-card {
+    padding: 24px 16px;
+  }
+
+  .confirm-title {
+    font-size: 20px;
+  }
+}
+
+
+
+/* ═══════════════════════════════════════
+   LEFT SECTION MOBILE RESPONSIVE FIX
+═══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* Card full width */
+  .left-col,
+  .card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Section heading */
+  .section-heading {
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  /* Shipping + Payment option responsive */
+  .shipping-option,
+  .payment-option {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+
+  /* Prevent text overflow */
+  .shipping-info,
+  .payment-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .shipping-name,
+  .payment-name {
+    font-size: 14px;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  .shipping-sub,
+  .payment-sub {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* Right side price */
+  .shipping-price {
+    font-size: 12px;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  /* Inputs */
+  .field-input {
+    min-width: 0;
+  }
+
+  /* Better spacing */
+  .card {
+    padding: 18px 14px;
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   SMALL PHONE FIX
+═══════════════════════════════════════ */
+
+@media (max-width: 480px) {
+
+  .shipping-option,
+  .payment-option {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .payment-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .radio-dot {
+    width: 18px;
+    height: 18px;
+  }
+
+  .radio-dot::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .shipping-name,
+  .payment-name {
+    font-size: 13px;
+  }
+
+  .shipping-sub,
+  .payment-sub {
+    font-size: 11px;
+  }
+
+  .shipping-price {
+    font-size: 11px;
   }
 }

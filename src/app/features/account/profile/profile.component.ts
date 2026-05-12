@@ -28,7 +28,8 @@ user: any = null;
         this.user.customerId
       ).subscribe({
         next: (res) => {
-          this.orders = res?.data || [];
+          // this.orders = res?.data || [];
+          this.orders = res || [];
           this.loadingOrders = false;
         },
         error: () => (this.loadingOrders = false)

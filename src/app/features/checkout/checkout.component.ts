@@ -40,50 +40,100 @@ paymentMethod = 'COD';
     }
   }
 
+  // submit(): void {
+  //   if (!this.customerName) return;
+  //   this.loading = true;
+  //   const tenantId = this.auth.getTenantId() ?? 0; // ← DYNAMIC
+  //     const user = this.auth.getUser(); // ✅ user lo
+  //   this.orderService.createOrder({
+  //     tenantId: tenantId,
+  //     userId: user?.customerId ?? null, // ✅ ye add karo
+  //     customerName: this.customerName,
+  //     customerEmail: this.customerEmail,
+  //     customerPhone: this.customerPhone,
+  //     totalAmount: this.total,
+  //     status: 'Pending'
+  //   }).subscribe({
+  //     next: (order) => {
+  //       const details = this.cartItems.map((item) =>
+  //         this.orderService.addOrderDetail({
+  //           orderId: order.orderId,
+  //           productId: item.productId,
+  //           quantity: item.quantity,
+  //           price: item.price
+  //         })
+  //       );
+
+  //       //   Promise.all(details.map((d) => d.toPromise())).then(() => {
+  //       //     this.cartService.clearCart();
+  //       //     this.router.navigate(['/account/orders']);
+  //       //   });
+  //       // },
+  //       Promise.all(details.map((d) => d.toPromise())).then(() => {
+  //         this.loading = false; // ✅ ADD THIS
+  //         this.cartService.clearCart();
+  //         this.orderId = 'ORD-' + order.orderId;  // ✅ OrderId save
+  //         this.orderConfirmed = true;
+  //         // this.router.navigate(['/shop']);
+  //       })
+  //     },
+
+  //     error: () => {
+  //       this.error = 'Order failed. Please try again.';
+  //       this.loading = false;
+  //     }
+  //   });
+  // }
+
   submit(): void {
-    if (!this.customerName) return;
-    this.loading = true;
-    const tenantId = this.auth.getTenantId() ?? 0; // ← DYNAMIC
-      const user = this.auth.getUser(); // ✅ user lo
-    this.orderService.createOrder({
-      tenantId: tenantId,
-      userId: user?.customerId ?? null, // ✅ ye add karo
-      customerName: this.customerName,
-      customerEmail: this.customerEmail,
-      customerPhone: this.customerPhone,
-      totalAmount: this.total,
-      status: 'Pending'
-    }).subscribe({
-      next: (order) => {
-        const details = this.cartItems.map((item) =>
-          this.orderService.addOrderDetail({
-            orderId: order.orderId,
-            productId: item.productId,
-            quantity: item.quantity,
-            price: item.price
-          })
-        );
-
-        //   Promise.all(details.map((d) => d.toPromise())).then(() => {
-        //     this.cartService.clearCart();
-        //     this.router.navigate(['/account/orders']);
-        //   });
-        // },
-        Promise.all(details.map((d) => d.toPromise())).then(() => {
-          this.loading = false; // ✅ ADD THIS
-          this.cartService.clearCart();
-          this.orderId = 'ORD-' + order.orderId;  // ✅ OrderId save
-          this.orderConfirmed = true;
-          // this.router.navigate(['/shop']);
-        })
-      },
-
-      error: () => {
-        this.error = 'Order failed. Please try again.';
-        this.loading = false;
-      }
-    });
+  // Validation
+  if (!this.customerName || !this.customerPhone) {
+    this.error = 'Please fill in your name and phone number.';
+    return;
   }
+  this.error = '';
+  this.loading = true;
+
+  const tenantId = this.auth.getTenantId() ?? 0;
+  const user = this.auth.getUser();
+
+  this.orderService.createOrder({
+    tenantId: tenantId,
+    userId: user?.customerId ?? null,
+    customerName: this.customerName,
+    customerEmail: this.customerEmail,
+    customerPhone: this.customerPhone,
+    totalAmount: this.total,
+    status: 'Pending'
+  }).subscribe({
+    next: (order) => {
+      const details = this.cartItems.map((item) =>
+        this.orderService.addOrderDetail({
+          orderId: order.orderId,
+          productId: item.productId,
+          quantity: item.quantity,
+          price: item.price
+        })
+      );
+
+      Promise.all(details.map((d) => d.toPromise()))
+        .then(() => {
+          this.loading = false;
+          this.cartService.clearCart();
+          this.orderId = 'ORD-' + order.orderId;
+          this.orderConfirmed = true;
+        })
+        .catch(() => {
+          this.error = 'Order placed but details failed. Please contact support.';
+          this.loading = false;
+        });
+    },
+    error: () => {
+      this.error = 'Order failed. Please try again.';
+      this.loading = false;
+    }
+  });
+}
 
   continueShopping(): void {
     this.router.navigate(['/shop']);

@@ -5,12 +5,12 @@ import { ApiService } from './api.service';
 
 export interface OrderCreatePayload {
   tenantId: number;
-  userId?: number | null;  // ✅ add karo
+  userId?: number | null;
   customerName: string;
   customerEmail?: string;
   customerPhone?: string;
   totalAmount: number;
-  status: string;        // 'Pending'
+  status?: string;        // ✅ optional banao — required mat rakho
 }
 
 export interface OrderDetailPayload {
@@ -79,10 +79,11 @@ export class OrderService {
   }
 
 
-  // new
 // order.service.ts
 getOrdersByUser(tenantId: number, userId: number): Observable<any> {
-  // Query params mat bhejo — sirf JWT token se authenticate hoga
-  return this.api.get<any>(`/Customer/my-orders`);  // ✅ no params needed
+  return this.api
+    .get<any>(`/Customer/my-orders`)
+    .pipe(map((res) => res.data));
 }
+
 }
