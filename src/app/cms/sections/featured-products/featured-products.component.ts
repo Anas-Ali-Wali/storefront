@@ -38,7 +38,7 @@ export class FeaturedProductsComponent  implements OnInit {
         });
       });
     } else {
-      this.productService.getProductsByTenant(this.auth.getTenantId() ?? 0, 1, 4).subscribe({
+      this.productService.getProductsByTenant(this.auth.getTenantId() ?? 0, 1, 25).subscribe({
         next: (res: PaginatedProducts) => (this.products = res.items),
         error: () => {}
       });
