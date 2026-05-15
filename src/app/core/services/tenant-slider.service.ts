@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TenantResolverService } from './tenant-resolver.service';
 
 export interface TenantSliderResponse {
@@ -14,12 +14,11 @@ export interface TenantSliderResponse {
   orderNo: number;
   isActive: boolean;
   createdDate: string;
-
-  // ✅ Yeh fields add karo
   layoutType: 'full-image' | 'text-only' | 'split-left' | 'split-right';
   bgColor: string;
   textColor: string;
   overlayOpacity: number;
+  isPresetImage: boolean;
 }
 
 export interface ApiResponse<T> {
@@ -27,16 +26,17 @@ export interface ApiResponse<T> {
   data: T;
 }
 
+// ← SliderStateService HATA DO YAHAN SE, alag file mein hai
+
 @Injectable()
 export class TenantSliderService {
-constructor(
+  constructor(
     private api: ApiService,
     private tenantResolver: TenantResolverService
   ) {}
 
   getActiveSliders(): Observable<TenantSliderResponse[]> {
     const tenantId = this.tenantResolver.getTenantId();
-
     return this.api.get<any>(`/TenantSlider/tenant/${tenantId}`).pipe(
       map((res) => {
         if (Array.isArray(res)) return res;
@@ -47,5 +47,14 @@ constructor(
     );
   }
 
-
+  getPresetImages(): Observable<TenantSliderResponse[]> {
+    const tenantId = this.tenantResolver.getTenantId();
+    return this.api.get<any>(`/TenantSlider/preset/${tenantId}`).pipe(
+      map((res) => {
+        if (Array.isArray(res)) return res;
+        if (Array.isArray(res?.data)) return res.data;
+        return [];
+      })
+    );
+  }
 }

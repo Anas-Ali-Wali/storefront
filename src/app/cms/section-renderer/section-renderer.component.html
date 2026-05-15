@@ -1,4 +1,4 @@
-<div class="cms-section">
+<!-- <div class="cms-section">
 
   <ng-container [ngSwitch]="mappedType">
 
@@ -7,7 +7,11 @@
       [section]="section">
     </app-hero-banner>
 
-<!-- <app-hero-banner></app-hero-banner> -->
+    <app-cms-image-gallery
+  *ngSwitchCase="'image-gallery'"
+  [section]="section">
+</app-cms-image-gallery>
+
 
     <app-featured-products
       *ngSwitchCase="'featured-products'"
@@ -25,5 +29,36 @@
     </app-promo-banner>
 
   </ng-container>
+
+</div> -->
+
+
+
+<div class="cms-section">
+
+  <app-hero-banner
+    *ngIf="mappedType === 'hero-banner'"
+    [section]="section">
+  </app-hero-banner>
+
+  <app-cms-image-gallery
+    *ngIf="mappedType === 'image-gallery'"
+    [section]="section">
+  </app-cms-image-gallery>
+
+  <app-featured-products
+    *ngIf="mappedType === 'featured-products'"
+    [section]="section">
+  </app-featured-products>
+
+  <app-category-grid
+    *ngIf="mappedType === 'category-grid'"
+    [section]="section">
+  </app-category-grid>
+
+  <app-promo-banner
+    *ngIf="mappedType === 'promo-banner'"
+    [section]="section">
+  </app-promo-banner>
 
 </div>

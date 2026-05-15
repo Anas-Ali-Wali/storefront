@@ -1,0 +1,25 @@
+<div class="gallery-section" *ngIf="!loading && images.length > 0">
+  <div class="gallery-grid">
+    <div
+      class="gallery-card"
+      *ngFor="let image of images"
+      [class.active]="selectedImage?.sliderId === image.sliderId"
+      (click)="selectImage(image)">
+
+      <div class="gallery-card-img"
+           [style.backgroundImage]="'url(' + image.imageUrl + ')'">
+      </div>
+
+      <div class="gallery-card-overlay"></div>
+
+      <div class="gallery-card-label">
+        {{ image.title || '' }}
+      </div>
+
+      <div class="gallery-card-check" *ngIf="selectedImage?.sliderId === image.sliderId">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -15,21 +15,23 @@ export class SectionRendererComponent {
   get mappedType(): string {
   const type = this.section?.type?.toLowerCase()?.trim() || '';
 
-  const map: Record<string, string> = {
-    hero: 'hero-banner',
-    'hero-banner': 'hero-banner',
-    products: 'featured-products',
-    'featured-products': 'featured-products',
-    banner: 'promo-banner',
-    'promo-banner': 'promo-banner',
-    category: 'category-grid',
-    'category-grid': 'category-grid',
-    'promo banner': 'promo-banner',
-    'category grid': 'category-grid',
-    'featured products': 'featured-products',
-    'hero banner': 'hero-banner',
-  };
-
+const map: Record<string, string> = {
+  hero: 'hero-banner',
+  'hero-banner': 'hero-banner',
+  
+  products: 'featured-products',
+  'featured-products': 'featured-products',
+  banner: 'promo-banner',
+  'promo-banner': 'promo-banner',
+  category: 'category-grid',
+  'category-grid': 'category-grid',
+  'promo banner': 'promo-banner',
+  'category grid': 'category-grid',
+  'featured products': 'featured-products',
+  'hero banner': 'hero-banner',
+  'image-gallery': 'image-gallery',  // ← ADD
+  'image gallery': 'image-gallery',  // ← ADD
+};
   return map[type] || type.replace(/\s+/g, '-');
 }
 }
