@@ -56,9 +56,24 @@
 
     <!-- Gallery -->
     <div class="pd-gallery">
+
+        <!-- ✅ Thumbnails — sirf tab dikhao agar images hain -->
+  <div class="gallery-thumbs" *ngIf="productImages.length > 0">
+    <div
+      *ngFor="let img of productImages"
+      class="thumb-item"
+      [class.active]="selectedImage?.imageId === img.imageId"
+      (click)="selectImage(img)">
+      <!-- <img [src]="getImageUrl(img.imageUrl)" [alt]="img.colorName" /> -->
+       <img [src]="apiBase + img.imageUrl" [alt]="img.colorName" />
+
+    </div>
+  </div>
+
+  
       <div class="gallery-main">
         <!-- <img [src]="product.imageUrl || 'https://via.placeholder.com/600x750?text=Product'" [alt]="product.name"/> -->
-         <img [src]="getImageUrl(product.imageUrl)" [alt]="product.name"/>
+  <img [src]="mainImageUrl" [alt]="product.name"/>
 
         <div class="gallery-actions">
           <button class="gal-btn" title="Add to Wishlist">

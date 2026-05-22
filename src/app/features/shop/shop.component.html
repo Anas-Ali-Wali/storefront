@@ -22,20 +22,22 @@
 <main class="pt-20 pb-16 max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10"
       style="background-color: var(--bg-color);">
 
-  <section class="mb-10">
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+  <!-- Header -->
+  <section class="mb-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight"
             style="color: var(--text-color);">The Collection</h1>
-        <p class="mt-2 max-w-xl text-sm sm:text-base opacity-60"
+        <p class="mt-1 max-w-xl text-xs sm:text-sm opacity-60"
            style="color: var(--text-color);">
           A curated selection of modern essentials for your lifestyle.
         </p>
       </div>
-      <div class="flex items-center gap-3">
-        <span class="text-sm hidden sm:block opacity-60"
+      <div class="flex items-center gap-2">
+        <span class="text-xs hidden sm:block opacity-60"
               style="color: var(--text-color);">Sort</span>
-        <select class="border rounded-xl px-3 py-2 text-sm shadow-sm"
+
+        <!-- <select class="border rounded-xl px-3 py-2 text-xs sm:text-sm w-full sm:w-auto"
                 style="background-color: var(--card-bg);
                        color: var(--card-text);
                        border-color: rgba(128,128,128,0.2);">
@@ -43,74 +45,170 @@
           <option>Price Low → High</option>
           <option>Price High → Low</option>
           <option>Newest</option>
-        </select>
+        </select> -->
+
+        <select (change)="onSortChange($event)"
+        class="border rounded-xl px-3 py-2 text-xs sm:text-sm w-full sm:w-auto"
+        style="background-color: var(--card-bg);
+               color: var(--card-text);
+               border-color: rgba(128,128,128,0.2);">
+  <option value="featured">Featured</option>
+  <option value="low-high">Price Low → High</option>
+  <option value="high-low">Price High → Low</option>
+  <option value="newest">Newest</option>
+</select>
+
       </div>
     </div>
   </section>
 
+  <!-- Mobile Filter Button -->
   <div class="lg:hidden mb-4">
     <button (click)="showFilters = !showFilters"
-            class="w-full py-3 rounded-xl font-semibold"
-            style="background-color: var(--button-color); color: var(--button-text-color);">
-      Filters
+            class="w-full py-2.5 rounded-xl font-semibold text-sm
+                   flex items-center justify-center gap-2"
+            style="background-color: var(--button-color);
+                   color: var(--button-text-color);">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 4h18M7 8h10M11 12h2"/>
+      </svg>
+      {{ showFilters ? 'Hide Filters' : 'Show Filters' }}
     </button>
   </div>
 
-  <div class="flex flex-col lg:flex-row gap-6 lg:gap-10">
+  <div class="flex flex-col lg:flex-row gap-4 lg:gap-8">
 
     <!-- FILTER SIDEBAR -->
-    <aside class="w-full lg:w-72 rounded-2xl shadow-sm border p-5 lg:sticky lg:top-24 h-fit"
-           style="background-color: var(--card-bg); border-color: rgba(128,128,128,0.15);"
-           [class.hidden]="!showFilters && isMobile">
+    <aside
+      [class.hidden]="isMobile && !showFilters"
+      class="w-full lg:w-64 xl:w-72 shrink-0 rounded-2xl border p-4
+             lg:sticky lg:top-24 h-fit"
+      style="background-color: var(--card-bg);
+             border-color: rgba(128,128,128,0.15);">
       <app-product-filters
         [categories]="categories"
         (categorySelected)="filterByCategory($event)">
       </app-product-filters>
     </aside>
 
-    <section class="flex-1">
-      <div class="grid gap-4 sm:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <!-- PRODUCTS GRID -->
+    <section class="flex-1 min-w-0">
 
-        <div *ngFor="let product of products"
-             class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition"
-             style="background-color: var(--card-bg); border: 1px solid rgba(128,128,128,0.12);">
+      <!-- Loading State -->
+      <div *ngIf="loading"
+           class="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-2
+                  lg:grid-cols-3 xl:grid-cols-4">
+        <div *ngFor="let i of [1,2,3,4,5,6,7,8]"
+             class="rounded-xl overflow-hidden border animate-pulse"
+             style="background: var(--card-bg);
+                    border-color: rgba(128,128,128,0.15);">
+          <div class="bg-gray-200" style="aspect-ratio:3/4;"></div>
+          <div class="p-3">
+            <div class="h-3 bg-gray-200 rounded mb-2"></div>
+            <div class="h-2 bg-gray-100 rounded w-3/4"></div>
+          </div>
+        </div>
+      </div>
 
-          <div class="relative aspect-[4/5] overflow-hidden cursor-pointer"
-               [routerLink]="['/product', product.productId]">
+      <!-- Error State -->
+      <div *ngIf="error && !loading"
+           class="flex flex-col items-center justify-center py-20 gap-3">
+        <span class="text-4xl">⚠️</span>
+        <p class="text-sm opacity-60" style="color: var(--text-color);">
+          Something went wrong. Please try again.
+        </p>
+        <button (click)="loadProducts()"
+                class="px-5 py-2 rounded-xl text-sm font-semibold"
+                style="background: var(--button-color);
+                       color: var(--button-text-color);">
+          Retry
+        </button>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && !error && products.length === 0"
+           class="flex flex-col items-center justify-center py-20 gap-3">
+        <span class="text-4xl">🛍️</span>
+        <p class="text-sm opacity-60" style="color: var(--text-color);">
+          No products found in this category.
+        </p>
+      </div>
+
+      <!-- Products Grid -->
+      <div *ngIf="!loading && !error && products.length > 0"
+           class="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-2
+                  lg:grid-cols-3 xl:grid-cols-4">
+
+        <a *ngFor="let product of products"
+           [routerLink]="['/product', product.productId]"
+           class="group rounded-xl overflow-hidden border block
+                  transition-transform duration-300 hover:-translate-y-1"
+           style="background: var(--card-bg);
+                  border-color: rgba(128,128,128,0.15);">
+
+          <!-- IMAGE 3:4 -->
+          <div class="relative overflow-hidden" style="aspect-ratio: 3/4;">
             <img [src]="getImageUrl(product.imageUrl)"
-                 class="w-full h-full object-cover group-hover:scale-110 transition duration-700"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-            <button (click)="addToCart(product); $event.stopPropagation()"
-                    class="absolute bottom-3 right-3 w-10 h-10 rounded-full shadow
-                           flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
-                    style="background-color: var(--button-color); color: var(--button-text-color);">
-              🛒
+                 [alt]="product.name"
+                 loading="lazy"
+                 class="w-full h-full object-cover transition duration-500
+                        group-hover:scale-105"/>
+
+            <!-- BADGE -->
+            <span class="absolute top-2 left-2 text-xs font-bold
+                         px-2 py-0.5 rounded-md"
+                  style="background: var(--primary-color); color: #fff;">
+              New
+            </span>
+
+            <!-- CART BUTTON — desktop hover -->
+            <button
+              (click)="addToCart(product); $event.preventDefault(); $event.stopPropagation()"
+              class="absolute bottom-2 right-2 w-8 h-8 sm:w-9 sm:h-9
+                     rounded-full flex items-center justify-center
+                     opacity-0 group-hover:opacity-100 transition duration-300
+                     sm:flex hidden"
+              style="background: var(--button-color);
+                     color: var(--button-text-color);">
+              &#128722;
             </button>
           </div>
 
-          <!-- CONTENT -->
-          <div class="p-3 sm:p-4">
-            <h3 class="font-semibold text-sm sm:text-base"
+          <!-- INFO -->
+          <div class="p-2.5 sm:p-3">
+            <h3 class="font-semibold text-xs sm:text-sm truncate"
                 style="color: var(--card-text);">
               {{ product.name }}
             </h3>
-            <p class="text-xs line-clamp-1 opacity-60"
+            <p class="text-xs truncate opacity-50 mt-0.5 hidden sm:block"
                style="color: var(--card-text);">
               {{ product.description }}
             </p>
-            <div class="flex justify-between mt-2 items-center">
-              <span class="font-bold text-sm"
+            <div class="flex items-center justify-between mt-1.5 sm:mt-2">
+              <span class="text-xs sm:text-sm font-bold"
                     style="color: var(--primary-color);">
                 PKR {{ product.price | number:'1.0-0' }}
               </span>
-              <span class="text-xs opacity-50"
+              <!-- Mobile Cart Button -->
+              <button
+                (click)="addToCart(product); $event.preventDefault(); $event.stopPropagation()"
+                class="sm:hidden w-7 h-7 rounded-full flex items-center
+                       justify-center text-xs"
+                style="background: var(--button-color);
+                       color: var(--button-text-color);">
+                &#128722;
+              </button>
+              <span class="text-xs opacity-40 hidden sm:block"
                     style="color: var(--card-text);">
                 Stock: {{ product.stockQty }}
               </span>
             </div>
           </div>
 
-        </div>
+        </a>
+
       </div>
     </section>
 

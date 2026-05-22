@@ -1,1 +1,48 @@
-/* Tailwind-based layout only; no extra component CSS required. */
+/* ✅ Layout Grid */
+.cat-layout-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-layout-4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-layout-3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-layout-2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cat-layout-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cat-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.group:hover .cat-img-wrap {
+  transform: scale(1.02);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .grid-layout-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-layout-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-layout-2col {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -16,6 +16,7 @@ export class ShopComponent implements OnInit {
 
   products: ProductResponseDto[] = [];
   categories: CategoryResponseDto[] = [];
+sortOrder = 'featured'; // class ke andar
 
   loading = false;
   error = false;
@@ -23,7 +24,7 @@ export class ShopComponent implements OnInit {
   selectedCategoryId: number | null = null;
 
   currentPage = 1;
-  pageSize = 12;
+  pageSize = 50;
   totalPages = 1;
 
   // ✅ UI STATE
@@ -101,6 +102,12 @@ export class ShopComponent implements OnInit {
         this.products = res.items;
         this.totalPages = res.totalPages;
         this.loading = false;
+
+          // ✅ agar sort already selected hai toh apply karo
+  if (this.sortOrder !== 'featured') {
+    this.sortProducts();
+  }
+
       },
       error: () => {
         this.error = true;
@@ -108,6 +115,34 @@ export class ShopComponent implements OnInit {
       }
     });
   }
+
+
+  onSortChange(event: Event): void {
+  const value = (event.target as HTMLSelectElement).value;
+  this.sortOrder = value;
+  this.sortProducts();
+}
+
+sortProducts(): void {
+  switch (this.sortOrder) {
+    case 'low-high':
+      this.products = [...this.products].sort((a, b) => a.price - b.price);
+      break;
+    case 'high-low':
+      this.products = [...this.products].sort((a, b) => b.price - a.price);
+      break;
+    case 'newest':
+      this.products = [...this.products].sort((a, b) =>
+        new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+      break;
+    default:
+      // featured — original order restore karo
+      this.loadProducts();
+      break;
+  }
+
+}
 
   // ✅ FILTER CLICK
   filterByCategory(categoryId: number | null): void {
@@ -150,6 +185,8 @@ getImageUrl(imageUrl?: string): string {
   if (imageUrl.startsWith('http')) return imageUrl;
   return `${this.apiBase}${imageUrl}`;
 }
+
+
 
 }
 

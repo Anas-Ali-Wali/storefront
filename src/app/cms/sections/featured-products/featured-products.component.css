@@ -1,1 +1,115 @@
-/* Tailwind-based layout only; no extra component CSS required. */
+/* .product-img-wrap {
+  aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 640px) {
+  .product-img-wrap {
+    aspect-ratio: 3 / 4;
+  }
+} */
+
+
+
+
+/* ── Base ── */
+.product-img-wrap {
+  aspect-ratio: 1 / 1;
+}
+@media (min-width: 640px) {
+  .product-img-wrap {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* ════════════════════════════
+   CARD STYLE: FASHION (Image 1)
+   — image top, name + strikethrough price
+════════════════════════════ */
+.card-style-fashion {
+  border-radius: 8px;
+  background: #fff;
+}
+.card-style-fashion .product-img-wrap {
+  aspect-ratio: 1 / 1;
+}
+.card-style-fashion .product-info-wrap {
+  padding: 10px 12px;
+  background: #fff;
+}
+.card-style-fashion .product-desc {
+  display: none;
+}
+.card-style-fashion .product-stock {
+  display: none;
+}
+
+/* ════════════════════════════
+   CARD STYLE: BADGE (Image 2)
+   — colored bg image, New badge, name bold uppercase, yellow price
+════════════════════════════ */
+.card-style-badge {
+  border-radius: 4px;
+  background: #fff;
+  border: none !important;
+}
+.card-style-badge .product-img-wrap {
+  aspect-ratio: 3 / 4;
+}
+.card-style-badge .product-info-wrap {
+  padding: 10px 12px;
+  text-align: center;
+}
+.card-style-badge .product-info-wrap h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.card-style-badge .product-info-wrap span {
+  font-weight: 700;
+  color: var(--primary-color) !important;
+}
+.card-style-badge .product-desc {
+  display: none;
+}
+.card-style-badge .product-stock {
+  display: none;
+}
+
+/* ════════════════════════════
+   CARD STYLE: MINIMAL (Image 3)
+   — white card, centered text, name + red price, no extras
+════════════════════════════ */
+.card-style-minimal {
+  border-radius: 0px;
+  /* background: #fff; */
+    background: #F5F5F7; /* ✅ same color */
+  border: 1px solid #ececec !important;
+  box-shadow: none;
+}
+.card-style-minimal .product-img-wrap {
+  aspect-ratio: 1 / 1;
+  background: #f7f7f7;
+}
+.card-style-minimal .product-info-wrap {
+  padding: 12px 14px;
+  text-align: center;
+    background: var(--bg-color); /* ✅ page background se match karega */
+  border-top: none;
+
+}
+.card-style-minimal .product-info-wrap h3 {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: normal;
+  line-height: 1.4;
+}
+.card-style-minimal .product-info-wrap > div {
+  justify-content: center;
+}
+.card-style-minimal .product-desc {
+  display: none;
+}
+.card-style-minimal .product-stock {
+  display: none;
+}

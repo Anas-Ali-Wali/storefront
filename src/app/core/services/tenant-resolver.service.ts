@@ -78,19 +78,33 @@ private resolvedTenantId: number | null = null;
   resolve(): Observable<any> {
     const domain = window.location.hostname;
 
+    // if (domain === 'localhost' || domain === '127.0.0.1') {
+    //   const params = new URLSearchParams(window.location.search);
+    //   const tenantId = params.get('tenantId');
+
+    //   if (tenantId) {
+    //     this.resolvedTenantId = Number(tenantId);
+    //     localStorage.setItem('website_tenant_id', tenantId);
+
+    //     // ✅ Settings load karo
+    //     this.loadAndApplySettings(Number(tenantId));
+    //   }
+    //   return of(null);
+    // }
+
     if (domain === 'localhost' || domain === '127.0.0.1') {
-      const params = new URLSearchParams(window.location.search);
-      const tenantId = params.get('tenantId');
+  const params = new URLSearchParams(window.location.search);
+  
+  // dono case handle karo
+  const tenantId = params.get('tenantid') || params.get('tenantId');
 
-      if (tenantId) {
-        this.resolvedTenantId = Number(tenantId);
-        localStorage.setItem('website_tenant_id', tenantId);
-
-        // ✅ Settings load karo
-        this.loadAndApplySettings(Number(tenantId));
-      }
-      return of(null);
-    }
+  if (tenantId) {
+    this.resolvedTenantId = Number(tenantId);
+    localStorage.setItem('website_tenant_id', tenantId);
+    this.loadAndApplySettings(Number(tenantId));
+  }
+  return of(null);
+}
 
     return this.http.get<any>(
       `${environment.apiUrl}/Tenant/resolve?domain=${domain}`
@@ -148,6 +162,28 @@ private resolvedTenantId: number | null = null;
   root.style.setProperty('--promo-text',        settings.promoBannerText  ?? '#f5ede0');
   root.style.setProperty('--card-bg',           settings.cardBg           ?? '#ffffff');
   root.style.setProperty('--card-text',         settings.cardText         ?? '#2a1f14');
+
+// existing lines
+root.style.setProperty('--card-style',          settings.cardStyle          ?? 'classic');
+root.style.setProperty('--category-card-style', settings.categoryCardStyle  ?? 'square');
+
+// ✅ YAHAN ADD KARO — shape map
+const shapeMap: Record<string, { radius: string; clip: string }> = {
+  square:    { radius: '0px',                          clip: 'none' },
+  rounded:   { radius: '16px',                         clip: 'none' },
+  circle:    { radius: '50%',                          clip: 'none' },
+  oval:      { radius: '50%',                          clip: 'none' },
+  hexagon:   { radius: '0px',                          clip: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' },
+  diamond:   { radius: '0px',                          clip: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' },
+  pill:      { radius: '50px',                         clip: 'none' },
+  arch:      { radius: '50% 50% 0 0 / 60% 60% 0 0',   clip: 'none' },
+  trapezoid: { radius: '0px',                          clip: 'polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)' },
+  wave:      { radius: '50% 50% 30% 30% / 40% 40% 20% 20%', clip: 'none' },
+};
+
+const shape = shapeMap[settings.categoryCardStyle ?? 'square'] ?? shapeMap['square'];
+root.style.setProperty('--cat-radius', shape.radius);
+root.style.setProperty('--cat-clip',   shape.clip);
 
     if (settings.fontFamily) {
       root.style.setProperty('--font-family', settings.fontFamily);

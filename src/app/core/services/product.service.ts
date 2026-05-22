@@ -21,8 +21,20 @@ export interface ProductResponseDto {
   colors:  string[];
   sku?:    string;
   brand?:  string;
+
+    images: ProductImageDto[];
 }
-  // Alias so old components still work
+
+
+// ✅ NEW — add karo
+export interface ProductImageDto {
+  imageId:   number;
+  imageUrl:  string;
+  colorName: string;
+  isPrimary: boolean;
+  orderNo:   number;
+}
+
   export type Product = ProductResponseDto;
 
   export interface PaginatedProducts {
@@ -65,4 +77,11 @@ export interface ProductResponseDto {
         .get<any>(`/Product/category/${categoryId}`, { pageNumber, pageSize })
         .pipe(map((res) => res.data));
     }
+
+    // ✅ NEW — product ki sari images lao
+getProductImages(productId: number): Observable<ProductImageDto[]> {
+  return this.api
+    .get<any>(`/ProductImage/${productId}`)
+    .pipe(map((res) => res.data));
+}
   }
