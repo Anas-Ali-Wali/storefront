@@ -7,9 +7,8 @@ import { FullSection } from '../../core/services/cms.service';
   styleUrls: ['./section-renderer.component.css'],
 })
 export class SectionRendererComponent {
-    // @Input() section: any; // 👈 ADD THIS
+      @Input() section!: FullSection;   // 👈 wapas add kiya, SectionRenderer ke binding ke liye zaroori
 
-  @Input() section!: FullSection;
 
 
   get mappedType(): string {
@@ -28,6 +27,11 @@ export class SectionRendererComponent {
     'category grid': 'category-grid',
     'featured products': 'featured-products',
     'hero banner': 'hero-banner',
+        // ← NEW
+    gallery: 'image-gallery',
+    'image-gallery': 'image-gallery',
+    'image gallery': 'image-gallery',
+
   };
 
   return map[type] || type.replace(/\s+/g, '-');

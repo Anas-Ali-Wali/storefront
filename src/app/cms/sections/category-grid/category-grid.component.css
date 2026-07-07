@@ -1,1 +1,39 @@
-/* Tailwind-based layout only; no extra component CSS required. */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.category-grid-shell {
+  background: var(--background-color, #ffffff);
+  color: var(--text-color, #1a1a1a);
+}
+
+.category-grid-shell .section-title {
+  color: var(--text-color, #1a1a1a);
+}
+
+.category-grid-shell .section-subtitle {
+  color: color-mix(in srgb, var(--text-color, #1a1a1a) 70%, transparent);
+}
+
+/* Reset for the card wrapper so no global .card / leaked styles apply */
+.category-grid-shell .category-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-grid-shell .overlay-layer {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.category-grid-shell .overlay-title,
+.category-grid-shell .overlay-link {
+  color: #ffffff;
+}
+
+.category-grid-shell .overlay-link:hover {
+  color: #ffffff;
+}

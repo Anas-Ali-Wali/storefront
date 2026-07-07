@@ -30,7 +30,6 @@
 
 
 
-
 <div *ngIf="loading" class="pd-loader">
   <app-loader></app-loader>
 </div>
@@ -57,8 +56,7 @@
     <!-- Gallery -->
     <div class="pd-gallery">
       <div class="gallery-main">
-        <!-- <img [src]="product.imageUrl || 'https://via.placeholder.com/600x750?text=Product'" [alt]="product.name"/> -->
-         <img [src]="getImageUrl(product.imageUrl)" [alt]="product.name"/>
+        <img [src]="selectedImage" [alt]="product.name"/>
 
         <div class="gallery-actions">
           <button class="gal-btn" title="Add to Wishlist">
@@ -73,6 +71,18 @@
             </svg>
           </button>
         </div>
+      </div>
+
+      <!-- THUMBNAILS -->
+      <div class="gallery-thumbs" *ngIf="allImages.length > 1">
+        <button
+          *ngFor="let img of allImages"
+          type="button"
+          class="thumb-btn"
+          [class.active]="img === selectedImage"
+          (click)="selectImage(img)">
+          <img [src]="img" alt="thumbnail" />
+        </button>
       </div>
     </div>
 
@@ -124,7 +134,7 @@
           </svg>
           {{ product.stockQty === 0 ? 'Out of Stock' : 'Add to Cart' }}
         </button>
-        <button class="btn-buy" [disabled]="product.stockQty === 0">Buy Now</button>
+  <button class="btn-buy" (click)="buyNow()" [disabled]="product.stockQty === 0">Buy Now</button>
       </div>
 
       <!-- Trust Bar -->

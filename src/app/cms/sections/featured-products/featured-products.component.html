@@ -19,28 +19,30 @@
 </section> -->
 
 
-<section class="bg-gradient-to-b from-slate-50 via-white to-slate-50 py-24">
+
+
+<section class="featured-products-shell bg-gradient-to-b from-slate-50 via-white to-slate-50 py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
 
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-14">
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.35em] text-blue-600">
+        <p class="section-label text-xs font-bold uppercase tracking-[0.35em]">
           Featured Collection
         </p>
 
-        <h2 class="mt-3 text-4xl md:text-5xl font-extrabold text-slate-900">
+        <h2 class="section-title mt-3 text-4xl md:text-5xl font-extrabold">
           New Arrivals
         </h2>
 
-        <p class="mt-3 text-slate-500 max-w-lg">
+        <p class="section-subtitle mt-3 max-w-lg">
           Discover premium curated products designed for modern lifestyle and performance.
         </p>
       </div>
 
       <a routerLink="/shop"
-         class="mt-6 md:mt-0 inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-blue-600 transition">
+         class="view-all mt-6 md:mt-0 inline-flex items-center gap-2 text-sm font-bold transition">
         View All →
       </a>
 
@@ -53,7 +55,7 @@
       <a
         *ngFor="let product of products"
         [routerLink]="['/product', product.productId]"
-        class="group relative bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 block">
+        class="product-card group relative rounded-3xl overflow-hidden border shadow-sm hover:shadow-2xl transition-all duration-500 block">
 
         <!-- IMAGE -->
         <div class="relative aspect-[4/5] overflow-hidden">
@@ -86,7 +88,7 @@
         <!-- CONTENT -->
         <div class="p-5 space-y-2">
 
-          <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition">
+          <h3 class="product-title font-bold transition">
             {{ product.name }}
           </h3>
 
@@ -95,7 +97,7 @@
           </p>
 
           <div class="flex items-center justify-between pt-2">
-            <span class="text-lg font-extrabold text-blue-600">
+            <span class="product-price text-lg font-extrabold">
               ${{ product.price }}
             </span>
 
@@ -111,3 +113,4 @@
     </div>
   </div>
 </section>
+

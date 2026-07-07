@@ -36,59 +36,78 @@
 
     </div> -->
 
-<section class="relative min-h-[90vh] flex items-center overflow-hidden">
 
-  <!-- Background only (no image here) -->
-  <div class="absolute inset-0 bg-[linear-gradient(120deg,#e6ebe9_0%,#c4d1cb_40%,#6f877e_100%)]"></div>
 
-  <!-- Soft glow -->
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(255,255,255,0.8),transparent_60%)]"></div>
-  <div class="absolute -top-10 -left-10 w-72 h-72 bg-white/40 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-0 right-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
+
+
+    <section *ngIf="!loading && activeSlide"
+         class="hero-banner-root relative min-h-[90vh] flex items-center overflow-hidden"
+         [style.background]="activeSlide!.layoutType !== 'full-image' || !activeSlide!.imageUrl
+           ? activeSlide!.bgColor
+           : 'url(' + activeSlide!.imageUrl + ') center/cover no-repeat'">
+
+  <!-- Dark overlay — sirf full-image layout ke liye -->
+  <div *ngIf="activeSlide!.layoutType === 'full-image' && activeSlide!.imageUrl"
+       class="absolute inset-0"
+       [style.background]="'rgba(0,0,0,' + (activeSlide!.overlayOpacity / 100) + ')'">
+  </div>
+
+  <!-- Split layout image — LEFT side -->
+  <div *ngIf="activeSlide!.layoutType === 'split-right' && activeSlide!.imageUrl"
+       class="absolute inset-y-0 left-0 w-1/2 bg-cover bg-center"
+       [style.background-image]="'url(' + activeSlide!.imageUrl + ')'">
+  </div>
+
+  <!-- Split layout image — RIGHT side -->
+  <div *ngIf="activeSlide!.layoutType === 'split-left' && activeSlide!.imageUrl"
+       class="absolute inset-y-0 right-0 w-1/2 bg-cover bg-center"
+       [style.background-image]="'url(' + activeSlide!.imageUrl + ')'">
+  </div>
 
   <!-- Content -->
   <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+    <div class="grid gap-10 min-h-[70vh] items-center"
+         [ngClass]="{
+           'md:grid-cols-2': activeSlide!.layoutType === 'split-left' || activeSlide!.layoutType === 'split-right',
+           'md:grid-cols-1': activeSlide!.layoutType === 'text-only' || activeSlide!.layoutType === 'full-image'
+         }">
 
-    <div class="grid md:grid-cols-2 items-center gap-10 min-h-[90vh]">
+      <div [style.margin-right]="activeSlide!.layoutType === 'split-left' ? '50%' : '0'"
+           [style.margin-left]="activeSlide!.layoutType === 'split-right' ? '50%' : '0'">
 
-      <!-- LEFT SIDE TEXT -->
-      <div>
-
-        <span class="inline-block px-4 py-1.5 mb-6 rounded-full bg-black/5 text-slate-700 text-xs font-bold uppercase tracking-widest border border-black/10">
+        <!-- <span *ngIf="activeSlide!.title"
+              class="theme-chip inline-block px-4 py-1.5 mb-6 rounded-full text-xs font-bold uppercase tracking-widest border"
+              [style.color]="activeSlide!.textColor">
           Limited Release
-        </span>
+        </span> -->
 
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight mb-6">
-          The Art of <br>
-          <span class="text-orange-600">Simplicity.</span>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6"
+            [style.color]="activeSlide!.textColor">
+          {{ activeSlide!.title }}
         </h1>
 
-        <p class="text-lg text-slate-600 mb-8 max-w-md leading-relaxed">
-          A curated selection of functional minimalists designed to elevate your daily environment.
+        <p class="text-lg mb-8 max-w-md leading-relaxed"
+           [style.color]="activeSlide!.textColor">
+          {{ activeSlide!.subtitle }}
         </p>
 
-        <a 
-          href="#"
-          class="inline-flex items-center gap-2 bg-orange-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:bg-orange-500 transition"
-        >
-          Explore Collection →
+        <a *ngIf="activeSlide!.buttonText"
+           [href]="activeSlide!.buttonLink || '#'"
+           class="theme-btn inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold shadow-md transition"
+           [style.background]="activeSlide!.bgColor"
+           [style.color]="activeSlide!.textColor">
+          {{ activeSlide!.buttonText }} →
         </a>
-
-      </div>
-
-      <!-- RIGHT SIDE IMAGE (below button style) -->
-      <div class="flex justify-center md:justify-end mt-10 md:mt-0">
-
-        <img 
-          src="./assets/slides/backround-png.png"
-          alt="Hero Image"
-          class="w-[320px] md:w-[420px] lg:w-[500px] object-contain drop-shadow-2xl"
-        >
-
       </div>
 
     </div>
-
   </div>
+</section>
 
+<section *ngIf="!loading && !activeSlide" class="min-h-[40vh] flex items-center justify-center">
+  <p class="text-slate-500">No slider configured for this tenant.</p>
+</section>
+
+<section *ngIf="loading" class="min-h-[40vh] flex items-center justify-center">
+  <p class="text-slate-400">Loading...</p>
 </section>

@@ -7,6 +7,14 @@
       [section]="section">
     </app-hero-banner>
 
+       <!-- NEW -->
+    <app-image-gallery
+      *ngSwitchCase="'image-gallery'"
+      [section]="section">
+    </app-image-gallery>
+
+    
+
     <app-featured-products
       *ngSwitchCase="'featured-products'"
       [section]="section">

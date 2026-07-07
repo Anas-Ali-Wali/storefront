@@ -1,0 +1,42 @@
+<section *ngIf="!loading && images.length" class="image-gallery-root py-10 px-4 sm:py-16 sm:px-6 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+    <div *ngFor="let img of images"
+         (click)="onImageClick(img)"
+         class="gallery-card relative block rounded-xl overflow-hidden group aspect-[4/5] sm:aspect-[3/4] cursor-pointer"
+         [style.background]="!img.imageUrl ? (img.bgColor || null) : null">
+
+      <!-- Image sirf tab dikhega jab imageUrl maujood ho -->
+      <img *ngIf="img.imageUrl"
+           [src]="img.imageUrl" [alt]="img.title"
+           class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+
+      <div *ngIf="img.imageUrl" class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+      <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4"
+           [class.h-full]="!img.imageUrl"
+           [class.flex]="!img.imageUrl"
+           [class.flex-col]="!img.imageUrl"
+           [class.justify-center]="!img.imageUrl"
+           [class.items-center]="!img.imageUrl"
+           [class.text-center]="!img.imageUrl"
+           [style.color]="!img.imageUrl ? (img.textColor || null) : (img.textColor || '#ffffff')">
+        <h3 class="text-base sm:text-lg font-bold" *ngIf="img.title">{{ img.title }}</h3>
+        <p class="text-xs sm:text-sm opacity-90" *ngIf="img.subtitle">{{ img.subtitle }}</p>
+        <a *ngIf="img.buttonText"
+           [href]="img.buttonLink || '#'"
+           (click)="$event.stopPropagation()"
+           class="inline-block mt-2 text-xs font-semibold underline">
+          {{ img.buttonText }} →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="!loading && !images.length" class="min-h-[20vh] flex items-center justify-center">
+  <p class="text-slate-500">No gallery images configured for this tenant.</p>
+</section>
+
+<section *ngIf="loading" class="min-h-[20vh] flex items-center justify-center">
+  <p class="text-slate-400">Loading...</p>
+</section>

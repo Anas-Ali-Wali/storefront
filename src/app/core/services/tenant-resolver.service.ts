@@ -12,35 +12,81 @@ export class TenantResolverService {
 
   constructor(private http: HttpClient) {}
 
-  resolve(): Observable<any> {
-    const slug = this.getSlugFromUrl();
+  // resolve(): Observable<any> {
+  //   const slug = this.getSlugFromUrl();
 
-    return this.http.get<any>(
-      `${environment.apiUrl}/tenant/by-slug/${slug}`
-    ).pipe(
-      tap((res) => {
-        if (res?.data?.tenantId) {
-          this.resolvedTenantId = Number(res.data.tenantId);
-          localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
-        }
-      }),
-      catchError(() => of(null))
-    );
+  //   return this.http.get<any>(
+  //     `${environment.apiUrl}/tenant/by-slug/${slug}`
+  //   ).pipe(
+  //     tap((res) => {
+  //       if (res?.data?.tenantId) {
+  //         this.resolvedTenantId = Number(res.data.tenantId);
+  //         localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+  //       }
+  //     }),
+  //     catchError(() => of(null))
+  //   );
+  // }
+
+
+resolve(): Observable<any> {
+  const tenantIdFromUrl = this.getTenantIdFromUrl();
+  if (tenantIdFromUrl !== null) {
+    this.resolvedTenantId = tenantIdFromUrl;
+    localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+    return of({ data: { tenantId: this.resolvedTenantId } });
   }
+
+  const storedTenantId = this.getStoredTenantId();
+  if (storedTenantId !== null) {
+    this.resolvedTenantId = storedTenantId;
+    return of({ data: { tenantId: this.resolvedTenantId } });
+  }
+
+  const slug = this.getSlugFromUrl();
+  if (!slug) {
+    return of(null);
+  }
+
+  return this.http.get<any>(
+    `${environment.apiUrl}/tenant/by-slug/${encodeURIComponent(slug)}`
+  ).pipe(
+    tap((res) => {
+      if (res?.data?.tenantId) {
+        this.resolvedTenantId = Number(res.data.tenantId);
+        localStorage.setItem('website_tenant_id', String(this.resolvedTenantId));
+      }
+    }),
+    catchError(() => of(null))
+  );
+}
 
   getTenantId(): number | null {
-    if (this.resolvedTenantId) return this.resolvedTenantId;
-    const stored = localStorage.getItem('website_tenant_id');
-    return stored ? Number(stored) : null;
+    if (this.resolvedTenantId !== null) return this.resolvedTenantId;
+    return this.getStoredTenantId();
   }
 
-  private getSlugFromUrl(): string {
-    const host = window.location.hostname;
-    const parts = host.split('.');
-    if (parts.length >= 3) return parts[0]; // ali.yourstore.com → "ali"
+private getStoredTenantId(): number | null {
+  const stored = localStorage.getItem('website_tenant_id');
+  if (!stored) return null;
+  const tenantId = Number(stored);
+  return Number.isNaN(tenantId) ? null : tenantId;
+}
 
-    // Local dev: localhost:4200?tenant=ali
-    const params = new URLSearchParams(window.location.search);
-    return params.get('tenant') || 'default';
-  }
+private getTenantIdFromUrl(): number | null {
+  const params = new URLSearchParams(window.location.search);
+  const tenantIdValue = params.get('tenantId') ?? params.get('tenant_id');
+  if (!tenantIdValue) return null;
+  const tenantId = Number(tenantIdValue);
+  return Number.isNaN(tenantId) ? null : tenantId;
+}
+
+private getSlugFromUrl(): string {
+  const host = window.location.hostname;
+  const parts = host.split('.');
+  if (parts.length >= 3) return parts[0];
+
+  const params = new URLSearchParams(window.location.search);
+  return params.get('tenant') || params.get('tenantSlug') || '';
+}
 }

@@ -1,11 +1,51 @@
-.help-container {
-  padding: 20px;
+:host {
+  display: block;
 }
 
-h1 {
-  margin-bottom: 16px;
+.help-shell {
+  background: var(--background-color, #ffffff);
+  color: var(--text-color, #1a1a1a);
 }
 
-p {
-  color: #666;
+.help-shell .hero-title,
+.help-shell .section-title,
+.help-shell .card-title,
+.help-shell .label-text,
+.help-shell .info-title {
+  color: var(--text-color, #1a1a1a);
 }
+
+.help-shell .hero-subtitle,
+.help-shell .section-copy,
+.help-shell .info-copy,
+.help-shell .faq-answer,
+.help-shell .helper-text {
+  color: color-mix(in srgb, var(--text-color, #1a1a1a) 70%, transparent);
+}
+
+.help-shell .panel-card,
+.help-shell .faq-card,
+.help-shell .form-card,
+.help-shell .info-card {
+  background: var(--card-bg, #ffffff);
+  color: var(--card-text, #2a1f14);
+  border: 1px solid color-mix(in srgb, var(--primary-color, #ea6c2d) 16%, transparent);
+}
+
+.help-shell .primary-btn {
+  background: var(--button-color, #ea6c2d);
+  color: var(--button-text-color, #ffffff);
+}
+
+.help-shell .icon-badge {
+  background: color-mix(in srgb, var(--primary-color, #ea6c2d) 12%, #ffffff);
+  color: var(--primary-color, #ea6c2d);
+}
+
+.help-shell .input-field:focus,
+.help-shell .select-field:focus,
+.help-shell .textarea-field:focus {
+  border-color: var(--primary-color, #ea6c2d);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #ea6c2d) 18%, transparent);
+}
+

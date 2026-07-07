@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../../core/services/order.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { TenantResolverService } from 'src/app/core/services/tenant-resolver.service';
 
 @Component({
   selector: 'app-account-orders',
@@ -8,41 +9,30 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./orders.component.css'],
 })
 export class AccountOrdersComponent {
-  //  implements OnInit
- orders: any[] = [];
+   orders: any[] = [];
   loading = true;
 
   constructor(
     private orderService: OrderService,
-    private authService: AuthService
+    private tenantResolver: TenantResolverService
   ) {}
 
-  // ngOnInit(): void {
-  //   const tenantId = this.authService.getTenantId();  // ← from auth service
-
-  //   this.orderService.getMyOrders(tenantId).subscribe({
-  //     next: (res) => {
-  //       this.orders = res?.items || [];
-  //       this.loading = false;
-  //     },
-  //     error: () => (this.loading = false)
-  //   });
-  // }
-
   ngOnInit(): void {
-  const tenantId = this.authService.getTenantId();
+    const tenantId = this.tenantResolver.getTenantId();
 
-  if (!tenantId) {
-    this.loading = false;
-    return;
+    if (!tenantId) {
+      console.error('AccountOrders: tenantId not resolved');
+      this.loading = false;
+      return;
+    }
+
+    this.orderService.getMyOrders(tenantId).subscribe({
+      next: (res) => {
+        this.orders = res?.items || [];
+        this.loading = false;
+      },
+      error: () => (this.loading = false)
+    });
   }
 
-  this.orderService.getMyOrders(tenantId).subscribe({
-    next: (res) => {
-      this.orders = res?.items || [];
-      this.loading = false;
-    },
-    error: () => (this.loading = false)
-  });
-}
 }

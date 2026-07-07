@@ -6,7 +6,7 @@ import { PageRendererComponent } from './page-renderer/page-renderer.component';
 import { SectionRendererComponent } from './section-renderer/section-renderer.component';
 
 @NgModule({
-  declarations: [PageRendererComponent],
+  declarations: [PageRendererComponent,],
   imports: [SharedModule, CmsSharedModule, RouterModule.forChild([{ path: '', component: PageRendererComponent }])],
   exports: [
     SectionRendererComponent  // 🔥 THIS IS REQUIRED

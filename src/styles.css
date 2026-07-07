@@ -1,5 +1,26 @@
-*{
-  font-family: poppins, sans-serif;
+:root {
+  --primary-color: #ea6c2d;
+  --secondary-color: #1a1a2e;
+  --accent-color: #ffffff;
+  --background-color: #ffffff;
+  --text-color: #1a1a1a;
+  --navbar-bg-color: #ffffff;
+  --navbar-text-color: #1a1a1a;
+  --footer-bg-color: #0f172a;
+  --footer-text-color: #ffffff;
+  --button-color: #ea6c2d;
+  --button-text-color: #ffffff;
+  --button-radius: 999px;
+  --hero-bg-color: #ffffff;
+  --promo-banner-bg: #1e1a14;
+  --promo-banner-text: #f5ede0;
+  --card-bg: #ffffff;
+  --card-text: #2a1f14;
+  --font-family: 'Poppins', sans-serif;
+}
+
+* {
+  font-family: var(--font-family);
 }
 
 /* @import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,14 +70,18 @@ a:hover {
   }
 
   body {
-    @apply m-0 bg-white text-slate-900 font-sans antialiased;
+    @apply m-0 antialiased;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
   }
   a {
-    @apply text-blue-600 no-underline transition-colors duration-150;
+    @apply no-underline transition-colors duration-150;
+    color: var(--primary-color);
   }
 
   a:hover {
-    @apply text-blue-700;
+    color: var(--secondary-color);
   }
 
   *,
@@ -92,9 +117,14 @@ a:hover {
   .btn-primary {
     @apply inline-flex items-center justify-center
            px-5 py-2.5 rounded-lg text-sm font-semibold
-           bg-blue-600 text-white
-           hover:bg-blue-700 active:scale-95
-           transition duration-150;
+           active:scale-95 transition duration-150;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border-radius: var(--button-radius);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(0.95);
   }
 
   .btn-outline {
@@ -114,9 +144,11 @@ a:hover {
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-slate-200
+    @apply rounded-2xl border border-slate-200
            p-5 shadow-sm hover:shadow-md
            transition-shadow duration-200;
+    background-color: var(--card-bg);
+    color: var(--card-text);
   }
 
   .badge {

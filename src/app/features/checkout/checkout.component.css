@@ -11,7 +11,8 @@ form { display: grid; gap: 1rem; }
 ═══════════════════════════════════════ */
 .checkout-page {
   min-height: 100vh;
-  background: #f5f4f0;
+  background: var(--background-color, #f5f4f0);
+  color: var(--text-color, #1a1a1a);
   font-family: 'DM Sans', sans-serif;
   position: relative;
   overflow-x: hidden;
@@ -52,7 +53,7 @@ form { display: grid; gap: 1rem; }
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #6366f1;
+  color: var(--primary-color, #6366f1);
   margin: 0 0 8px;
 }
 
@@ -60,20 +61,21 @@ form { display: grid; gap: 1rem; }
   font-family: 'DM Serif Display', serif;
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 400;
-  color: #1a1a2e;
+  color: var(--text-color, #1a1a2e);
   margin: 0 0 8px;
   line-height: 1.1;
 }
 
 .header-sub {
   font-size: 14px;
-  color: #6b7280;
+  color: color-mix(in srgb, var(--text-color, #1a1a1a) 70%, transparent);
   margin: 0;
 }
 
 .header-total-pill {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--card-bg, #fff);
+  color: var(--card-text, #1a1a1a);
+  border: 1px solid color-mix(in srgb, var(--primary-color, #ea6c2d) 16%, transparent);
   border-radius: 14px;
   padding: 14px 24px;
   display: flex;
@@ -94,7 +96,7 @@ form { display: grid; gap: 1rem; }
 .total-amount {
   font-size: 20px;
   font-weight: 700;
-  color: #059669;
+  color: var(--primary-color, #059669);
 }
 
 /* ═══════════════════════════════════════
@@ -126,10 +128,11 @@ form { display: grid; gap: 1rem; }
    CARD
 ═══════════════════════════════════════ */
 .card {
-  background: #ffffff;
+  background: var(--card-bg, #ffffff);
+  color: var(--card-text, #1a1a1a);
   border-radius: 20px;
   padding: 32px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid color-mix(in srgb, var(--primary-color, #ea6c2d) 16%, transparent);
   box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
 }
 
@@ -159,7 +162,7 @@ form { display: grid; gap: 1rem; }
 .section-title {
   font-size: 18px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--text-color, #1a1a2e);
   margin: 0;
 }
 
@@ -201,7 +204,7 @@ form { display: grid; gap: 1rem; }
 }
 
 .field-input {
-  background: #f8f7f4;
+  background: color-mix(in srgb, var(--card-bg, #f8f7f4) 90%, white);
   border: 1.5px solid transparent;
   border-radius: 12px;
   padding: 12px 16px;
@@ -223,9 +226,9 @@ form { display: grid; gap: 1rem; }
 }
 
 .field-input:focus {
-  background: #fff;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  background: var(--background-color, #fff);
+  border-color: var(--primary-color, #6366f1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #6366f1) 16%, transparent);
 }
 
 /* ═══════════════════════════════════════
@@ -255,9 +258,9 @@ form { display: grid; gap: 1rem; }
 }
 
 .shipping-option.selected {
-  border-color: #6366f1;
-  background: #f5f4ff;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.08);
+  border-color: var(--primary-color, #6366f1);
+  background: color-mix(in srgb, var(--primary-color, #6366f1) 10%, white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #6366f1) 10%, transparent);
 }
 
 .radio-hidden {
@@ -282,13 +285,13 @@ form { display: grid; gap: 1rem; }
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #6366f1;
+  background: var(--primary-color, #6366f1);
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.18s;
 }
 
 .radio-dot.active {
-  border-color: #6366f1;
+  border-color: var(--primary-color, #6366f1);
 }
 
 .radio-dot.active::after {
@@ -349,9 +352,9 @@ form { display: grid; gap: 1rem; }
 }
 
 .payment-option.selected {
-  border-color: #6366f1;
-  background: #f5f4ff;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.08);
+  border-color: var(--primary-color, #6366f1);
+  background: color-mix(in srgb, var(--primary-color, #6366f1) 10%, white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #6366f1) 10%, transparent);
 }
 
 .payment-icon {
@@ -414,8 +417,8 @@ form { display: grid; gap: 1rem; }
 .place-order-btn {
   width: 100%;
   padding: 18px 24px;
-  background: #1a1a2e;
-  color: #fff;
+  background: var(--button-color, #1a1a2e);
+  color: var(--button-text-color, #fff);
   border: none;
   border-radius: 16px;
   font-size: 16px;
@@ -428,7 +431,7 @@ form { display: grid; gap: 1rem; }
 }
 
 .place-order-btn:hover:not(:disabled) {
-  background: #2d2d54;
+  background: color-mix(in srgb, var(--button-color, #1a1a2e) 85%, black);
   box-shadow: 0 6px 20px rgba(26, 26, 46, 0.28);
 }
 
@@ -473,12 +476,12 @@ form { display: grid; gap: 1rem; }
    ORDER SUMMARY (RIGHT PANEL)
 ═══════════════════════════════════════ */
 .summary-panel {
-  background: #1a1a2e;
+  background: var(--secondary-color, #1a1a2e);
   border-radius: 24px;
   padding: 32px;
   position: sticky;
   top: 32px;
-  color: #fff;
+  color: var(--button-text-color, #fff);
 }
 
 .summary-title {

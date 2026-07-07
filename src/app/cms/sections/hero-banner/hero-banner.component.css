@@ -1,0 +1,15 @@
+.hero-banner-root {
+  background-color: var(--hero-bg-color);
+  color: var(--text-color);
+}
+
+.hero-banner-root .theme-chip {
+  background-color: color-mix(in srgb, var(--primary-color) 12%, white);
+  color: var(--primary-color);
+  border-color: color-mix(in srgb, var(--primary-color) 20%, white);
+}
+
+.hero-banner-root .theme-btn {
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+}

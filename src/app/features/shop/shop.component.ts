@@ -4,6 +4,7 @@ import { Product, ProductResponseDto, ProductService, PaginatedProducts } from '
 import { CategoryResponseDto, CategoryService } from 'src/app/core/services/category.service';
 import { CartItem, CartService } from 'src/app/core/services/cart.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { TenantResolverService } from 'src/app/core/services/tenant-resolver.service';
 
 @Component({
   selector: 'app-shop',
@@ -11,8 +12,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-
-  products: ProductResponseDto[] = [];
+products: ProductResponseDto[] = [];
   categories: CategoryResponseDto[] = [];
 
   loading = false;
@@ -24,7 +24,6 @@ export class ShopComponent implements OnInit {
   pageSize = 12;
   totalPages = 1;
 
-  // ✅ UI STATE
   showFilters = false;
   isMobile = false;
 
@@ -33,11 +32,10 @@ export class ShopComponent implements OnInit {
     private categoryService: CategoryService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private auth: AuthService
+    private tenantResolver: TenantResolverService   // 👈 AuthService ki jagah ye
   ) {}
 
   ngOnInit(): void {
-
     this.checkScreenSize();
 
     this.route.queryParams.subscribe(params => {
@@ -51,22 +49,18 @@ export class ShopComponent implements OnInit {
     this.loadCategories();
   }
 
-  // ✅ SCREEN RESPONSIVE HANDLING
   @HostListener('window:resize')
   checkScreenSize(): void {
     this.isMobile = window.innerWidth < 1024;
-
-    // desktop pe filters always open
-    if (!this.isMobile) {
-      this.showFilters = true;
-    } else {
-      this.showFilters = false;
-    }
+    this.showFilters = !this.isMobile;
   }
 
-  // ✅ CATEGORY LOAD
   loadCategories(): void {
-    const tenantId = this.auth.getTenantId() ?? 0;
+    const tenantId = this.tenantResolver.getTenantId();
+    if (!tenantId) {
+      console.error('ShopComponent: tenantId not resolved for categories');
+      return;
+    }
 
     this.categoryService.getCategoriesByTenant(tenantId).subscribe({
       next: (cats) => (this.categories = cats),
@@ -74,13 +68,17 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  // ✅ PRODUCT LOAD (FIXED DUPLICATE CALLS)
   loadProducts(): void {
-
     this.loading = true;
     this.error = false;
 
-    const tenantId = this.auth.getTenantId() ?? 0;
+    const tenantId = this.tenantResolver.getTenantId();
+    if (!tenantId) {
+      console.error('ShopComponent: tenantId not resolved for products');
+      this.loading = false;
+      this.error = true;
+      return;
+    }
 
     const request$ = this.selectedCategoryId
       ? this.productService.getProductsByCategory(
@@ -107,32 +105,27 @@ export class ShopComponent implements OnInit {
     });
   }
 
-  // ✅ FILTER CLICK
   filterByCategory(categoryId: number | null): void {
     this.selectedCategoryId = categoryId;
     this.currentPage = 1;
     this.loadProducts();
 
-    // mobile auto close
     if (this.isMobile) {
       this.showFilters = false;
     }
   }
 
-  // pagination
   changePage(page: number): void {
     this.currentPage = page;
     this.loadProducts();
   }
 
-  // cart
   addToCart(product: ProductResponseDto): void {
     const item: CartItem = {
       productId: product.productId,
       name: product.name,
       price: product.price,
-      // imageUrl: product.imageUrl || '',
-          imageUrl: this.getImageUrl(product.imageUrl), // ✅ full URL
+      imageUrl: this.getImageUrl(product.imageUrl),
       quantity: 1,
       stockQty: product.stockQty
     };
@@ -140,14 +133,13 @@ export class ShopComponent implements OnInit {
     this.cartService.addToCart(item);
   }
 
-  // apna backend base URL
-private apiBase = 'http://localhost:5025';
+  private apiBase = 'http://localhost:5025';
 
-getImageUrl(imageUrl?: string): string {
-  if (!imageUrl) return 'assets/placeholder.jpg';
-  if (imageUrl.startsWith('http')) return imageUrl;
-  return `${this.apiBase}${imageUrl}`;
-}
+  getImageUrl(imageUrl?: string): string {
+    if (!imageUrl) return 'assets/placeholder.jpg';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `${this.apiBase}${imageUrl}`;
+  }
 
 }
 

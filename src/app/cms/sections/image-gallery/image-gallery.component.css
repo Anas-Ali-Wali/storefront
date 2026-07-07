@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.image-gallery-root {
+  background: var(--background-color, #ffffff);
+}
+
+.gallery-card {
+  background: var(--card-bg, #f3f4f6);
+  color: var(--card-text, #1a1a1a);
+}

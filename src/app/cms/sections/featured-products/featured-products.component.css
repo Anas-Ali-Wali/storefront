@@ -1,1 +1,41 @@
-/* Tailwind-based layout only; no extra component CSS required. */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.featured-products-shell {
+  background: var(--background-color, #ffffff);
+  color: var(--text-color, #1a1a1a);
+}
+
+.featured-products-shell .section-title,
+.featured-products-shell .section-subtitle,
+.featured-products-shell .section-label {
+  color: var(--text-color, #1a1a1a);
+}
+
+.featured-products-shell .section-label {
+  color: var(--primary-color, #ea6c2d);
+}
+
+.featured-products-shell .product-card {
+  background: var(--card-bg, #ffffff);
+  color: var(--card-text, #2a1f14);
+  border: 1px solid color-mix(in srgb, var(--primary-color, #ea6c2d) 16%, transparent);
+}
+
+.featured-products-shell .product-card:hover {
+  box-shadow: 0 14px 40px color-mix(in srgb, var(--primary-color, #ea6c2d) 18%, transparent);
+}
+
+.featured-products-shell .product-title {
+  color: var(--card-text, #2a1f14);
+}
+
+.featured-products-shell .product-price {
+  color: var(--primary-color, #ea6c2d);
+}
+
+.featured-products-shell .view-all {
+  color: var(--primary-color, #ea6c2d);
+}

@@ -42,9 +42,9 @@
 
 
 
-<section class="py-12 px-4 sm:px-6 lg:px-12">
+<section class="promo-banner-root py-12 px-4 sm:px-6 lg:px-12">
 
-  <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-10 sm:p-14 lg:p-16 shadow-xl border border-slate-800">
+  <div class="relative overflow-hidden rounded-3xl p-10 sm:p-14 lg:p-16 shadow-xl border" style="background-color: var(--promo-banner-bg); color: var(--promo-banner-text); border-color: color-mix(in srgb, var(--promo-banner-text) 20%, transparent);">
 
     <!-- Background glow -->
     <div class="absolute inset-0 opacity-20 pointer-events-none">
@@ -57,27 +57,27 @@
       <!-- LEFT -->
       <div class="text-center lg:text-left">
 
-        <p class="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
+        <p class="text-xs font-bold uppercase tracking-[0.3em]" style="color: color-mix(in srgb, var(--promo-banner-text) 70%, transparent);">
           Limited Time Offer
         </p>
 
-        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+        <h2 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold" style="color: var(--promo-banner-text);">
           {{ headline }}
         </h2>
 
-        <p class="mt-4 text-sm sm:text-base text-slate-300">
+        <p class="mt-4 text-sm sm:text-base" style="color: color-mix(in srgb, var(--promo-banner-text) 80%, transparent);">
           Join our exclusive circle and get special discounts on premium products.
         </p>
 
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
 
           <a [routerLink]="link"
-             class="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-bold text-slate-900 hover:bg-slate-200 transition">
+             class="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-bold transition" style="background-color: var(--button-color); color: var(--button-text-color);">
             {{ cta }}
           </a>
 
           <button
-            class="rounded-full border border-slate-600 px-8 py-3 text-sm font-bold text-white hover:bg-slate-800 transition">
+            class="rounded-full border px-8 py-3 text-sm font-bold transition" style="border-color: color-mix(in srgb, var(--promo-banner-text) 25%, transparent); color: var(--promo-banner-text);">
             Learn More
           </button>
 
@@ -88,15 +88,15 @@
       <!-- RIGHT -->
       <div class="text-center lg:text-right">
 
-        <div class="text-6xl sm:text-7xl lg:text-8xl font-black text-white">
+        <div class="text-6xl sm:text-7xl lg:text-8xl font-black" style="color: var(--promo-banner-text);">
           15%
         </div>
 
-        <div class="mt-2 text-xs font-bold tracking-[0.3em] text-slate-400 uppercase">
+        <div class="mt-2 text-xs font-bold tracking-[0.3em] uppercase" style="color: color-mix(in srgb, var(--promo-banner-text) 70%, transparent);">
           Discount Code: MONO15
         </div>
 
-        <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-800 px-5 py-2 text-xs text-slate-300 border border-slate-700">
+        <div class="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs border" style="background-color: color-mix(in srgb, var(--promo-banner-text) 10%, transparent); color: var(--promo-banner-text); border-color: color-mix(in srgb, var(--promo-banner-text) 20%, transparent);">
           <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
           Active Offer
         </div>

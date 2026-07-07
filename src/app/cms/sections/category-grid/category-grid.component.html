@@ -96,16 +96,15 @@
 </div>
 </section> -->
 
-
-<section class="py-24 px-12 max-w-[1920px] mx-auto bg-white">
+<section class="category-grid-shell py-24 px-12 max-w-[1920px] mx-auto">
 
   <!-- Heading -->
   <div class="flex items-end justify-between mb-16">
     <div>
-      <h2 class="text-4xl font-bold text-slate-900 mb-2">
+      <h2 class="section-title text-4xl font-bold mb-2">
         Curated Categories
       </h2>
-      <p class="text-slate-500">
+      <p class="section-subtitle text-slate-500">
         Defining your space through intentional design.
       </p>
     </div>
@@ -118,20 +117,20 @@
     <a *ngIf="categories[0]"
        [routerLink]="['/shop']"
        [queryParams]="{ categoryId: categories[0].categoryId }"
-       class="md:col-span-2 md:row-span-2 relative group rounded-xl overflow-hidden">
+       class="category-card md:col-span-2 md:row-span-2 relative group rounded-xl overflow-hidden">
 
       <img
         [src]="getImageUrl(categories[0].imageUrl)"
         class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
       />
 
-      <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition"></div>
+      <div class="overlay-layer absolute inset-0 group-hover:opacity-90 transition"></div>
 
       <div class="absolute bottom-8 left-8 text-white">
-        <h3 class="text-3xl font-bold text-white">
+        <h3 class="overlay-title text-3xl font-bold">
           {{ categories[0].name }}
         </h3>
-        <span class="text-sm underline">Shop Now</span>
+        <span class="overlay-link text-sm underline">Shop Now</span>
       </div>
     </a>
 
@@ -139,20 +138,20 @@
     <a *ngIf="categories[1]"
        [routerLink]="['/shop']"
        [queryParams]="{ categoryId: categories[1].categoryId }"
-       class="md:col-span-2 relative group rounded-xl overflow-hidden">
+       class="category-card md:col-span-2 relative group rounded-xl overflow-hidden">
 
       <img
         [src]="getImageUrl(categories[1].imageUrl)"
         class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
       />
 
-      <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition"></div>
+      <div class="overlay-layer absolute inset-0 group-hover:opacity-90 transition"></div>
 
       <div class="absolute bottom-6 left-6 text-white">
-        <h3 class="text-2xl font-bold text-white">
+        <h3 class="overlay-title text-2xl font-bold">
           {{ categories[1].name }}
         </h3>
-        <span class="text-sm underline">Shop Now</span>
+        <span class="overlay-link text-sm underline">Shop Now</span>
       </div>
     </a>
 
@@ -160,20 +159,20 @@
     <a *ngFor="let cat of categories.slice(2)"
        [routerLink]="['/shop']"
        [queryParams]="{ categoryId: cat.categoryId }"
-       class="relative group rounded-xl overflow-hidden">
+       class="category-card relative group rounded-xl overflow-hidden">
 
       <img
         [src]="getImageUrl(cat.imageUrl)"
         class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
       />
 
-      <div class="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition"></div>
+      <div class="overlay-layer absolute inset-0 group-hover:opacity-90 transition"></div>
 
       <div class="absolute bottom-4 left-4 text-white">
-        <h3 class="text-lg font-bold text-white">
+        <h3 class="overlay-title text-lg font-bold">
           {{ cat.name }}
         </h3>
-        <span class="text-xs underline">Shop Now</span>
+        <span class="overlay-link text-xs underline">Shop Now</span>
       </div>
 
     </a>

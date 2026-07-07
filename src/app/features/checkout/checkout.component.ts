@@ -5,6 +5,7 @@ import { OrderService } from '../../core/services/order.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { TenantResolverService } from 'src/app/core/services/tenant-resolver.service';
 
 @Component({
   selector: 'app-checkout',
@@ -12,11 +13,11 @@ import { environment } from 'src/environments/environment.prod';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent {
-  shippingMethod = 'standard';
+ shippingMethod = 'standard';
   customerAddress = '';
-city = '';
-paymentMethod = 'Cash';
- cartItems = this.cartService.getItems();
+  city = '';
+  paymentMethod = 'Cash';
+  cartItems = this.cartService.getItems();
   total = this.cartService.getTotal();
   loading = false;
   error = '';
@@ -29,8 +30,7 @@ paymentMethod = 'Cash';
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router,
-        private auth: AuthService // ← ADD
-
+    private tenantResolver: TenantResolverService   // 👈 AuthService ki jagah
   ) {}
 
   ngOnInit(): void {
@@ -41,8 +41,16 @@ paymentMethod = 'Cash';
 
   submit(): void {
     if (!this.customerName) return;
+
+    const tenantId = this.tenantResolver.getTenantId();
+
+    if (!tenantId) {
+      this.error = 'Store information could not be loaded. Please refresh and try again.';
+      return;
+    }
+
     this.loading = true;
-    const tenantId = this.auth.getTenantId() ?? 0; // ← DYNAMIC
+
     this.orderService.createOrder({
       tenantId: tenantId,
       customerName: this.customerName,
@@ -61,29 +69,20 @@ paymentMethod = 'Cash';
           })
         );
 
-      //   Promise.all(details.map((d) => d.toPromise())).then(() => {
-      //     this.cartService.clearCart();
-      //     this.router.navigate(['/account/orders']);
-      //   });
-      // },
-            Promise.all(details.map((d) => d.toPromise())).then(() => {
-        this.loading = false; // ✅ ADD THIS
-        this.cartService.clearCart();
-        this.router.navigate(['/shop']);
-      })
-    },
-
+        Promise.all(details.map((d) => d.toPromise())).then(() => {
+          this.loading = false;
+          this.cartService.clearCart();
+          this.router.navigate(['/shop']);
+        }).catch(() => {
+          this.error = 'Order placed but details could not be saved. Please contact support.';
+          this.loading = false;
+        });
+      },
       error: () => {
         this.error = 'Order failed. Please try again.';
         this.loading = false;
       }
     });
   }
-
-  // catch(() => {               // ✅ ADD THIS TOO
-  //       this.error = 'Order details save nahi hue. Please retry.';
-  //       this.loading = false;
-  //     });
-
 
 }
